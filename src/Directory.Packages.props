@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <!-- enforce central package management -->
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>false</CentralPackageTransitivePinningEnabled>
+    <!-- version overrides are disabled; if the need arises, it will be an exception to be discussed -->
+    <CentralPackageVersionOverrideEnabled>false</CentralPackageVersionOverrideEnabled>
+  </PropertyGroup>
+  <!-- packages used globally -->
+  <ItemGroup>
+    <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="9.0.8" />
+    <PackageVersion Include="Microsoft.AspNetCore.TestHost" Version="9.0.8" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+  </ItemGroup>
+</Project>

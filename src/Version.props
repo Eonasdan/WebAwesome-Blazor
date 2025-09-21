@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <!-- component classification -->
+  <Choose>
+    <!-- various testing and other technical projects -->
+    <When Condition="$(MSBuildProjectName.Contains('Test'))">
+      <PropertyGroup>
+        <BbComponentGroup>Tests</BbComponentGroup>
+        <BbForProductionUse>False</BbForProductionUse>
+      </PropertyGroup>
+    </When>
+    <When Condition="$(MSBuildProjectName.Contains('Benchmark'))">
+      <PropertyGroup>
+        <BbComponentGroup>Benchmarks</BbComponentGroup>
+        <BbForProductionUse>False</BbForProductionUse>
+      </PropertyGroup>
+    </When>
+    <When Condition="$(MSBuildProjectName.Contains('Mock'))">
+      <PropertyGroup>
+        <BbComponentGroup>Mocks</BbComponentGroup>
+        <BbForProductionUse>False</BbForProductionUse>
+      </PropertyGroup>
+    </When>
+    <!-- everything else is considered a library -->
+    <Otherwise>
+      <PropertyGroup>
+        <BbComponentGroup>Libs</BbComponentGroup>
+        <BbForProductionUse>True</BbForProductionUse>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+
+  <!-- Framework targeting -->
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <RuntimeFrameworkVersion>9.0.8</RuntimeFrameworkVersion>
+  </PropertyGroup>
+
+  <!-- Common compilation settings -->
+  <PropertyGroup>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <!-- solution metadata -->
+  <PropertyGroup>
+    <!-- main solution file -->
+    <BbMainSolution>WebAwesome.slnx</BbMainSolution>
+
+    <!-- version and copyright information -->
+    <Company>BoldBrick, s.r.o.</Company>
+    <Product>Web Awesome Blazor bindings</Product>
+    <Copyright>Copyright © 2025–$([System.DateTime]::Today.Year) $(Company)</Copyright>
+
+    <!-- version numbers - these flow SDK-style projects -->
+    <Version>3.0.0-beta-4</Version>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
+    <FileVersion>3.0.0.0</FileVersion>
+    <InformationalVersion>3.0.0</InformationalVersion>
+
+    <!-- supported languages -->
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <NeutralLanguage>en</NeutralLanguage>
+  </PropertyGroup>
+</Project>
