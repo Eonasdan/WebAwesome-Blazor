@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <!--
+    For non-SDK projects that import this file and then import Microsoft.Common.props,
+    tell Microsoft.Common.props not to import Directory.Build.props again
+    -->
+    <ImportDirectoryBuildProps>false</ImportDirectoryBuildProps>
+  </PropertyGroup>
+
+  <!-- version and copyright information -->
+  <Import Project="$(MSBuildThisFileDirectory)Version.props" />
+
+  <!-- default empty targets -->
+  <Target Name="CleanPackage" />
+  <Target Name="Package" />
+
+  <!-- common output directory configuration -->
+  <PropertyGroup>
+    <!-- root solution directory initialization in case running from project folder -->
+    <SolutionDir Condition="$(SolutionDir) == ''">$([MSBuild]::EnsureTrailingSlash($([MSBuild]::GetDirectoryNameOfFileAbove('$(MSBuildThisFileDirectory)', '$(BbMainSolution)'))))</SolutionDir>
+
+    <!-- root directory for build artifacts -->
+    <ArtifactsDir Condition="'$(ArtifactsDir)'==''">$(SolutionDir)output\</ArtifactsDir>
+
+    <!-- output\obj\<configuration>\<project>\ -->
+    <BaseIntermediateOutputPath>$(ArtifactsDir)obj\$(Configuration)\</BaseIntermediateOutputPath>
+    <IntermediateOutputPath>$(BaseIntermediateOutputPath)$(MSBuildProjectName)\</IntermediateOutputPath>
+
+    <!-- output\bin\<configuration>\[<component>\] -->
+    <BaseOutputPath>$(ArtifactsDir)bin\$(Configuration)\</BaseOutputPath>
+    <OutputPath>$(BaseOutputPath)$(BbComponentGroup)\</OutputPath>
+    <OutDir>$(OutputPath)</OutDir>
+
+    <!-- output\packages\ -->
+    <PackageOutputPath>$(ArtifactsDir)packages\$(Configuration)\</PackageOutputPath>
+
+    <!-- output\publish\[<component>\] -->
+    <PublishDir>$(ArtifactsDir)publish\$(BbComponentGroup)\</PublishDir>
+
+    <!-- EF Core output directory -->
+    <EFOutputDir>$(IntermediateOutputPath)</EFOutputDir>
+
+    <!-- NuSpec output directory -->
+    <NuspecOutputPath>$(IntermediateOutputPath)</NuspecOutputPath>
+
+    <!-- used primarily by the packaging system -->
+    <MSBuildProjectExtensionsPath>$(IntermediateOutputPath)</MSBuildProjectExtensionsPath>
+
+    <!-- Don't transitively copy output files, since everything builds to the same folder. -->
+    <!-- UseCommonOutputDirectory>True</UseCommonOutputDirectory -->
+
+    <!-- common project output files -->
+    <ProjectAssetsFile>$(MSBuildProjectExtensionsPath)project.assets.json</ProjectAssetsFile>
+    <ProjectAssetsCacheFile>$(MSBuildProjectExtensionsPath)$(TargetFramework)\$(MSBuildProjectName).assets.cache</ProjectAssetsCacheFile>
+
+    <!-- prevent the framework-version subdirectory -->
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+
+    <!-- well-know folders with build dependencies -->
+    <BbToolsDir>$(SolutionDir)\..\tools\</BbToolsDir>
+    <BbLibsDir>$(SolutionDir)\..\libs\</BbLibsDir>
+
+    <!-- copy dependencies into the output folder (required for module and component projects not referenced from EXEs) -->
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <!-- prevent publishing and packing test projects -->
+  <PropertyGroup Condition="!$(BbForProductionUse)">
+    <IsPackable>false</IsPackable>
+    <IsPublishable>false</IsPublishable>
+  </PropertyGroup>
+
+  <!-- Release build setttings -->
+  <PropertyGroup Condition="'$(Configuration)'=='Release' AND $(BbForProductionUse)">
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract> <!-- Optional: extracts native libraries at runtime -->
+  </PropertyGroup>
+
+  <!-- Assembly attributes -->
+  <ItemGroup Condition="'$(BbComponentGroup)'=='Libs' AND '$(Configuration)'=='Debug'">
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>$(AssemblyName).Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <!-- Assembly info generation settings - for modern SDK-style projects -->
+  <PropertyGroup>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <GenerateAssemblyVersionAttribute>true</GenerateAssemblyVersionAttribute>
+    <GenerateAssemblyFileVersionAttribute>true</GenerateAssemblyFileVersionAttribute>
+    <GenerateAssemblyInformationalVersionAttribute>true</GenerateAssemblyInformationalVersionAttribute>
+    <GenerateAssemblyCompanyAttribute>true</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>true</GenerateAssemblyProductAttribute>
+    <GenerateAssemblyCopyrightAttribute>true</GenerateAssemblyCopyrightAttribute>
+  </PropertyGroup>
+
+  <!-- Package license configuration -->
+  <PropertyGroup>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+  </PropertyGroup>
+
+  <!-- Include license file in packages -->
+  <ItemGroup Condition="'$(IsPackable)' == 'true'">
+    <None Include="$(SolutionDir)..\LICENSE.md" Pack="true" PackagePath="" />
+  </ItemGroup>
+</Project>
