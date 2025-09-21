@@ -31,12 +31,12 @@ public class WaGrid : WaLayoutBase
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass("wa-grid"));
         builder.AddAttributeIfNotNullOrEmpty(3, "style", GetCombinedStyle());
         builder.AddElementReferenceCapture(4, __elementReference => Element = __elementReference);
-        
+
         if (ChildContent is not null)
         {
             builder.AddContent(5, ChildContent);
         }
-        
+
         builder.CloseElement();
     }
 
@@ -50,13 +50,13 @@ public class WaGrid : WaLayoutBase
     private string GetCombinedStyle()
     {
         var styles = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(MinColumnSize))
             styles.Add($"--min-column-size: {MinColumnSize}");
-            
+
         if (!string.IsNullOrEmpty(Style))
             styles.Add(Style);
-            
+
         return string.Join("; ", styles);
     }
 

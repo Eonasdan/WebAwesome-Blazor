@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
-using WebAwesome.Blazor.Components;
 
 namespace WebAwesome.Blazor.Components;
 
@@ -67,7 +66,7 @@ public class WaTabGroup : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-tab-group");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
@@ -75,7 +74,7 @@ public class WaTabGroup : ComponentBase
         builder.AddAttributeIfNotNullOrEmpty(4, "active", Active);
         builder.AddAttribute(5, "placement", Placement.ToHtmlValue());
         builder.AddAttribute(6, "activation", Activation.ToHtmlValue());
-        
+
         // Add event handlers
         // TODO: These events need to be mapped to the Web Awesome component events
         // wa-tab-change, wa-tab-close
@@ -83,15 +82,15 @@ public class WaTabGroup : ComponentBase
         {
             // Custom event handler will need JavaScript interop
         }
-        
+
         if (OnTabClose.HasDelegate)
         {
             // Custom event handler will need JavaScript interop
         }
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(10, __tabGroupReference => Element = __tabGroupReference);
-        
+
         // Add nav slot content
         if (NavContent is not null)
         {
@@ -100,13 +99,13 @@ public class WaTabGroup : ComponentBase
             builder.AddContent(22, NavContent);
             builder.CloseElement();
         }
-        
+
         // Add child content (tabs and tab panels)
         if (ChildContent is not null)
         {
             builder.AddContent(30, ChildContent);
         }
-        
+
         builder.CloseElement();
     }
 
@@ -140,10 +139,10 @@ public class WaTabGroup : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

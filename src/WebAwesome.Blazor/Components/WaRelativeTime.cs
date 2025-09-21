@@ -55,12 +55,12 @@ public class WaRelativeTime : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-relative-time");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
         builder.AddAttributeIfNotNullOrEmpty(3, "style", Style);
-        
+
         // Add relative time attributes
         if (Date.HasValue)
         {
@@ -71,17 +71,17 @@ public class WaRelativeTime : ComponentBase
         {
             builder.AddAttributeIfNotNullOrEmpty(10, "date", DateString);
         }
-        
+
         builder.AddAttribute(11, "sync", Sync);
         if (Format != WaFormat.Auto)
             builder.AddAttribute(12, "format", Format.ToHtmlValue());
         builder.AddAttributeIfNotNullOrEmpty(13, "lang", Lang);
         if (!Numeric)
             builder.AddAttribute(14, "numeric", Numeric);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(20, __relativeTimeReference => Element = __relativeTimeReference);
-        
+
         builder.CloseElement();
     }
 
@@ -92,7 +92,7 @@ public class WaRelativeTime : ComponentBase
             // TODO: JS Interop needed
             // Initialize Intl.RelativeTimeFormat and timer management
             // Call: await JSRuntime.InvokeVoidAsync("webAwesome.relativeTime.initialize", Element);
-            
+
             // The JavaScript should:
             // 1. Parse the date attribute using Date.parse() or new Date()
             // 2. Calculate time difference from current time
@@ -102,7 +102,7 @@ public class WaRelativeTime : ComponentBase
             // 6. Handle different format styles (auto, relative, numeric)
             // 7. Support custom lang attribute for localization
         }
-        
+
         await base.OnAfterRenderAsync(firstRender);
     }
 
@@ -111,7 +111,7 @@ public class WaRelativeTime : ComponentBase
         // TODO: JS Interop needed
         // Update the component when parameters change
         // Call: await JSRuntime.InvokeVoidAsync("webAwesome.relativeTime.update", Element, GetDateString());
-        
+
         await base.OnParametersSetAsync();
     }
 
@@ -142,10 +142,10 @@ public class WaRelativeTime : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

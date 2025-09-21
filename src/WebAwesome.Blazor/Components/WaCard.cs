@@ -70,22 +70,22 @@ public class WaCard : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-card");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
         builder.AddAttributeIfNotNullOrEmpty(3, "style", Style);
-        
+
         // Add card-specific attributes
         if (Appearance != WaAppearance.Outlined)
             builder.AddAttribute(10, "appearance", Appearance.ToHtmlValue());
         builder.AddAttribute(11, "with-header", WithHeader || HeaderContent is not null);
         builder.AddAttribute(12, "with-footer", WithFooter || FooterContent is not null);
         builder.AddAttribute(13, "with-media", WithMedia || MediaContent is not null);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(14, __cardReference => Element = __cardReference);
-        
+
         // Add media slot content
         if (MediaContent is not null)
         {
@@ -94,7 +94,7 @@ public class WaCard : ComponentBase
             builder.AddContent(22, MediaContent);
             builder.CloseElement();
         }
-        
+
         // Add header slot content
         if (HeaderContent is not null)
         {
@@ -103,13 +103,13 @@ public class WaCard : ComponentBase
             builder.AddContent(32, HeaderContent);
             builder.CloseElement();
         }
-        
+
         // Add main content
         if (ChildContent is not null)
         {
             builder.AddContent(40, ChildContent);
         }
-        
+
         // Add footer slot content
         if (FooterContent is not null)
         {
@@ -118,7 +118,7 @@ public class WaCard : ComponentBase
             builder.AddContent(52, FooterContent);
             builder.CloseElement();
         }
-        
+
         builder.CloseElement();
     }
 
@@ -132,10 +132,10 @@ public class WaCard : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

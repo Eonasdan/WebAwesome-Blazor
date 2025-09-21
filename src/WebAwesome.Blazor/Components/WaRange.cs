@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
-using WebAwesome.Blazor.Components;
 
 namespace WebAwesome.Blazor.Components;
 
@@ -54,10 +53,10 @@ public class WaRange : WaInputBase<decimal>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-slider");
-        
+
         // Add common attributes from base
         AddCommonAttributes(builder, 1);
-        
+
         // Add slider-specific attributes
         builder.AddAttribute(20, "min", Min);
         builder.AddAttribute(21, "max", Max);
@@ -67,7 +66,7 @@ public class WaRange : WaInputBase<decimal>
         builder.AddAttribute(25, "with-markers", WithMarkers);
         builder.AddAttributeIfNotNullOrEmpty(26, "tooltip-placement", TooltipPlacement);
         builder.AddAttributeIfNotNull(27, "indicator-offset", IndicatorOffset);
-        
+
         // Range selection attributes
         builder.AddAttribute(30, "range", Range);
         if (Range)
@@ -79,7 +78,7 @@ public class WaRange : WaInputBase<decimal>
         {
             builder.AddAttribute(33, "value", BindConverter.FormatValue(CurrentValue));
         }
-        
+
         // Add value binding for single value mode
         if (!Range)
         {
@@ -91,16 +90,16 @@ public class WaRange : WaInputBase<decimal>
             // TODO: Range mode requires custom event handling for min-value and max-value changes
             // This requires JavaScript interop to properly handle dual-thumb events
         }
-        
+
         // Add common event handlers
         AddCommonEventHandlers(builder, 50);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(60, __sliderReference => Element = __sliderReference);
-        
+
         // Add label and hint slots
         AddLabelAndHintSlots(builder, 70);
-        
+
         // Add reference content slot
         if (ReferenceContent is not null)
         {
@@ -109,7 +108,7 @@ public class WaRange : WaInputBase<decimal>
             builder.AddContent(82, ReferenceContent);
             builder.CloseElement();
         }
-        
+
         builder.CloseElement();
     }
 
@@ -121,7 +120,7 @@ public class WaRange : WaInputBase<decimal>
             validationErrorMessage = null;
             return true;
         }
-        
+
         result = default;
         validationErrorMessage = $"The {DisplayName ?? FieldIdentifier.FieldName} field must be a number.";
         return false;

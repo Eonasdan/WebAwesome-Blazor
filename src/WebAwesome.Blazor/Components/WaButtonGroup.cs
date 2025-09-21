@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
-using WebAwesome.Blazor.Components;
 
 namespace WebAwesome.Blazor.Components;
 
@@ -56,7 +55,7 @@ public class WaButtonGroup : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-button-group");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
@@ -65,16 +64,16 @@ public class WaButtonGroup : ComponentBase
         builder.AddAttributeIfNotNull(5, "size", Size?.ToHtmlValue());
         builder.AddAttributeIfNotNull(6, "orientation", Orientation?.ToHtmlValue());
         builder.AddAttributeIfNotNull(7, "variant", Variant?.ToHtmlValue());
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(10, __buttonGroupReference => Element = __buttonGroupReference);
-        
+
         // Add child content (buttons)
         if (ChildContent is not null)
         {
             builder.AddContent(20, ChildContent);
         }
-        
+
         builder.CloseElement();
     }
 
@@ -88,10 +87,10 @@ public class WaButtonGroup : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

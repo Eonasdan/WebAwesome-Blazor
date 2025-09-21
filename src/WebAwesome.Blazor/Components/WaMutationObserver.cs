@@ -72,12 +72,12 @@ public class WaMutationObserver : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-mutation-observer");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
         builder.AddAttributeIfNotNullOrEmpty(3, "style", Style);
-        
+
         // Add mutation observer attributes
         builder.AddAttribute(10, "attr", Attr);
         builder.AddAttribute(11, "child-list", ChildList);
@@ -90,16 +90,16 @@ public class WaMutationObserver : ComponentBase
         // Add event handlers
         if (OnMutation.HasDelegate)
             builder.AddAttribute(20, "wa-mutation", OnMutation);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(30, __observerReference => Element = __observerReference);
-        
+
         // Add child content to observe
         if (ChildContent is not null)
         {
             builder.AddContent(40, ChildContent);
         }
-        
+
         builder.CloseElement();
     }
 
@@ -110,7 +110,7 @@ public class WaMutationObserver : ComponentBase
             // TODO: JS Interop needed
             // Initialize MutationObserver with specified options
             // Call: await JSRuntime.InvokeVoidAsync("webAwesome.mutationObserver.initialize", Element);
-            
+
             // The JavaScript should:
             // 1. Create new MutationObserver instance
             // 2. Parse component attributes to build MutationObserverInit options:
@@ -126,7 +126,7 @@ public class WaMutationObserver : ComponentBase
             // 5. Validate that at least one of attr, child-list, or char-data is true
             // 6. Handle disconnection/reconnection on component updates
         }
-        
+
         await base.OnAfterRenderAsync(firstRender);
     }
 
@@ -170,7 +170,7 @@ public class WaMutationObserver : ComponentBase
     {
         // TODO: JS Interop needed
         // return await JSRuntime.InvokeAsync<object[]>("webAwesome.mutationObserver.takeRecords", Element);
-        return Array.Empty<object>();
+        return await Task.FromResult(Array.Empty<object>());
     }
 
     #endregion
@@ -183,10 +183,10 @@ public class WaMutationObserver : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

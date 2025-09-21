@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using WebAwesome.Blazor.Base;
-using WebAwesome.Blazor.Components;
 
 namespace WebAwesome.Blazor.Components;
 
@@ -76,7 +75,7 @@ public class WaSplitPanel : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-split-panel");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
@@ -88,17 +87,17 @@ public class WaSplitPanel : ComponentBase
         builder.AddAttribute(8, "disabled", Disabled);
         builder.AddAttributeIfNotNullOrEmpty(9, "snap", Snap);
         builder.AddAttribute(10, "snap-threshold", SnapThreshold);
-        
+
         // Add event handlers
         // TODO: This event needs to be mapped to the Web Awesome component events
         if (OnReposition.HasDelegate)
         {
             // Custom event handler will need JavaScript interop
         }
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(20, __splitPanelReference => Element = __splitPanelReference);
-        
+
         // Add start slot content
         if (StartContent is not null)
         {
@@ -107,7 +106,7 @@ public class WaSplitPanel : ComponentBase
             builder.AddContent(32, StartContent);
             builder.CloseElement();
         }
-        
+
         // Add end slot content
         if (EndContent is not null)
         {
@@ -116,7 +115,7 @@ public class WaSplitPanel : ComponentBase
             builder.AddContent(42, EndContent);
             builder.CloseElement();
         }
-        
+
         // Add divider slot content
         if (DividerContent is not null)
         {
@@ -125,7 +124,7 @@ public class WaSplitPanel : ComponentBase
             builder.AddContent(52, DividerContent);
             builder.CloseElement();
         }
-        
+
         builder.CloseElement();
     }
 
@@ -175,10 +174,10 @@ public class WaSplitPanel : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

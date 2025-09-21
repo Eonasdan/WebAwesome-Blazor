@@ -43,19 +43,19 @@ public class WaDivider : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-divider");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
         builder.AddAttributeIfNotNullOrEmpty(3, "style", Style);
-        
+
         // Add divider-specific attributes
         if (Orientation != WaOrientation.Horizontal)
             builder.AddAttribute(10, "orientation", Orientation.ToHtmlValue());
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(11, __dividerReference => Element = __dividerReference);
-        
+
         builder.CloseElement();
     }
 
@@ -69,10 +69,10 @@ public class WaDivider : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

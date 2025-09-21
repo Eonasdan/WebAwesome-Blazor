@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Components.Rendering;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
-using WebAwesome.Blazor.Components;
 
 namespace WebAwesome.Blazor.Components;
 
@@ -59,10 +58,10 @@ public class WaInput : WaInputBase<string?>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-input");
-        
+
         // Add common attributes
         var sequence = AddCommonAttributes(builder, 1);
-        
+
         // Add input-specific attributes
         builder.AddAttributeIfNotNullOrEmpty(20, "placeholder", Placeholder);
         builder.AddAttribute(21, "type", Type.ToHtmlValue());
@@ -75,28 +74,28 @@ public class WaInput : WaInputBase<string?>
         builder.AddAttributeIfNotNull(28, "min", Min);
         builder.AddAttributeIfNotNull(29, "max", Max);
         builder.AddAttributeIfNotNull(30, "step", Step);
-        
+
         // Add value binding
         builder.AddAttribute(31, "value", CurrentValueAsString);
         builder.AddAttribute(32, "onchange", EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString));
         builder.SetUpdatesAttributeName("value");
-        
+
         // Add common event handlers
         AddCommonEventHandlers(builder, 40);
-        
+
         // Add input-specific event handlers
         if (OnClear.HasDelegate)
             builder.AddAttribute(50, "wa-clear", OnClear);
-            
+
         if (OnPasswordToggle.HasDelegate)
             builder.AddAttribute(51, "wa-password-toggle", OnPasswordToggle);
-            
+
         if (OnPasswordVisibilityChange.HasDelegate)
             builder.AddAttribute(52, "wa-password-visibility-change", OnPasswordVisibilityChange);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(53, __inputReference => Element = __inputReference);
-        
+
         // Add start slot content
         if (StartContent is not null)
         {
@@ -105,7 +104,7 @@ public class WaInput : WaInputBase<string?>
             builder.AddContent(62, StartContent);
             builder.CloseElement();
         }
-        
+
         // Add end slot content
         if (EndContent is not null)
         {
@@ -114,10 +113,10 @@ public class WaInput : WaInputBase<string?>
             builder.AddContent(67, EndContent);
             builder.CloseElement();
         }
-        
+
         // Add label and hint slots
         AddLabelAndHintSlots(builder, 70);
-        
+
         builder.CloseElement();
     }
 

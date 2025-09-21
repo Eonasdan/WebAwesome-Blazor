@@ -54,18 +54,18 @@ public class WaText : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         var elementName = GetElementName();
-        
+
         builder.OpenElement(0, elementName);
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
         builder.AddAttributeIfNotNullOrEmpty(3, "style", Style);
         builder.AddElementReferenceCapture(4, __elementReference => ElementRef = __elementReference);
-        
+
         if (ChildContent is not null)
         {
             builder.AddContent(5, ChildContent);
         }
-        
+
         builder.CloseElement();
     }
 
@@ -81,7 +81,7 @@ public class WaText : ComponentBase
         // Use custom element if specified
         if (!string.IsNullOrEmpty(Element))
             return Element;
-            
+
         // Default semantic elements based on variant
         return Variant switch
         {
@@ -100,7 +100,7 @@ public class WaText : ComponentBase
         return Size switch
         {
             TextSize.XS => "h6",
-            TextSize.S => "h5", 
+            TextSize.S => "h5",
             TextSize.M => "h4",
             TextSize.L => "h3",
             TextSize.XL => "h2",
@@ -116,15 +116,15 @@ public class WaText : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         // Add text utility class based on variant and size
         var textClass = BuildTextClass();
         classes.Add(textClass);
-        
+
         // Add user classes
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 
@@ -135,7 +135,7 @@ public class WaText : ComponentBase
     {
         var variant = Variant.ToHtmlValue();
         var size = Size.ToHtmlValue();
-        
+
         // Handle special cases for heading sizes beyond XL
         if (Variant == TextVariant.Heading)
         {
@@ -146,14 +146,14 @@ public class WaText : ComponentBase
                 _ => $"wa-{variant}-{size}"
             };
         }
-        
+
         // For body and caption, only use sizes they support
         if (Variant == TextVariant.Caption && (Size == TextSize.XL2 || Size == TextSize.XL3))
         {
             // Caption doesn't support 2xl/3xl, fallback to xl
             return "wa-caption-xl";
         }
-        
+
         return $"wa-{variant}-{size}";
     }
 

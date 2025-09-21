@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
-using WebAwesome.Blazor.Components;
 
 namespace WebAwesome.Blazor.Components;
 
@@ -18,7 +17,6 @@ public class WaRating : WaInputBase<decimal>
 
     [Parameter] public int Max { get; set; } = 5;
     [Parameter] public decimal Precision { get; set; } = 1;
-    [Parameter] public bool Readonly { get; set; }
 
     #endregion
 
@@ -34,36 +32,36 @@ public class WaRating : WaInputBase<decimal>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-rating");
-        
+
         // Add common attributes from base
         AddCommonAttributes(builder, 1);
-        
+
         // Add rating-specific attributes
         builder.AddAttribute(20, "max", Max);
         builder.AddAttribute(21, "precision", Precision);
         builder.AddAttribute(22, "readonly", Readonly);
         builder.AddAttribute(23, "value", BindConverter.FormatValue(CurrentValue));
-        
+
         // Add value binding
         builder.AddAttribute(30, "onchange", EventCallback.Factory.CreateBinder<decimal>(this, __value => CurrentValue = __value, CurrentValue));
         builder.SetUpdatesAttributeName("value");
-        
+
         // Add rating-specific event handlers
         if (OnHover.HasDelegate)
         {
             // TODO: This requires custom event handling for wa-hover events
             // builder.AddAttribute(40, "wa-hover", OnHover);
         }
-        
+
         // Add common event handlers
         AddCommonEventHandlers(builder, 50);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(60, __ratingReference => Element = __ratingReference);
-        
+
         // Add label and hint slots
         AddLabelAndHintSlots(builder, 70);
-        
+
         builder.CloseElement();
     }
 
@@ -75,7 +73,7 @@ public class WaRating : WaInputBase<decimal>
             validationErrorMessage = null;
             return true;
         }
-        
+
         result = default;
         validationErrorMessage = $"The {DisplayName ?? FieldIdentifier.FieldName} field must be a number.";
         return false;

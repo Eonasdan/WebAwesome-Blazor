@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components.Web;
 using WebAwesome.Blazor.Base;
-using WebAwesome.Blazor.Components;
 
 namespace WebAwesome.Blazor.Components;
 
@@ -67,7 +66,7 @@ public class WaRadio : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-radio");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
@@ -77,26 +76,26 @@ public class WaRadio : ComponentBase
         builder.AddAttribute(6, "disabled", Disabled);
         builder.AddAttributeIfNotNull(7, "size", Size?.ToHtmlValue());
         builder.AddAttributeIfNotNull(8, "appearance", Appearance?.ToHtmlValue());
-        
+
         // Add event handlers
         if (OnCheckedChange.HasDelegate)
             builder.AddAttribute(10, "wa-change", OnCheckedChange);
-            
+
         if (OnFocus.HasDelegate)
             builder.AddAttribute(11, "onfocus", OnFocus);
-            
+
         if (OnBlur.HasDelegate)
             builder.AddAttribute(12, "onblur", OnBlur);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(13, __radioReference => Element = __radioReference);
-        
+
         // Add child content (label)
         if (ChildContent is not null)
         {
             builder.AddContent(20, ChildContent);
         }
-        
+
         builder.CloseElement();
     }
 
@@ -110,10 +109,10 @@ public class WaRadio : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

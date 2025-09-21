@@ -56,12 +56,12 @@ public class WaFrame : ComponentBase
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
         builder.AddAttributeIfNotNullOrEmpty(3, "style", Style);
         builder.AddElementReferenceCapture(4, __elementReference => Element = __elementReference);
-        
+
         if (ChildContent is not null)
         {
             builder.AddContent(5, ChildContent);
         }
-        
+
         builder.CloseElement();
     }
 
@@ -75,15 +75,15 @@ public class WaFrame : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         // Base frame class with aspect ratio modifier
         var baseClass = AspectRatio == FrameAspectRatio.Square ? "wa-frame" : $"wa-frame:{AspectRatio.ToHtmlValue()}";
         classes.Add(baseClass);
-        
+
         // Add user classes
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

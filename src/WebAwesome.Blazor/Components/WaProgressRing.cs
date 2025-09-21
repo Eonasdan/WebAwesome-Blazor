@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
-using WebAwesome.Blazor.Components;
 
 namespace WebAwesome.Blazor.Components;
 
@@ -53,22 +52,22 @@ public class WaProgressRing : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-progress-ring");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
         builder.AddAttributeIfNotNullOrEmpty(3, "style", Style);
         builder.AddAttribute(4, "value", Value);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(10, __progressRingReference => Element = __progressRingReference);
-        
+
         // Add child content (label)
         if (ChildContent is not null)
         {
             builder.AddContent(20, ChildContent);
         }
-        
+
         builder.CloseElement();
     }
 
@@ -82,10 +81,10 @@ public class WaProgressRing : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

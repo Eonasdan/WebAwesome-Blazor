@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using WebAwesome.Blazor.Base;
-using WebAwesome.Blazor.Components;
 
 namespace WebAwesome.Blazor.Components;
 
@@ -54,7 +53,7 @@ public class WaAnimatedImage : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-animated-image");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
@@ -62,17 +61,17 @@ public class WaAnimatedImage : ComponentBase
         builder.AddAttributeIfNotNullOrEmpty(4, "src", Src);
         builder.AddAttributeIfNotNullOrEmpty(5, "alt", Alt);
         builder.AddAttribute(6, "play", Play);
-        
+
         // Add event handlers
         if (OnLoad.HasDelegate)
             builder.AddAttribute(10, "load", OnLoad);
-            
+
         if (OnError.HasDelegate)
             builder.AddAttribute(11, "error", OnError);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(20, __animatedImageReference => Element = __animatedImageReference);
-        
+
         builder.CloseElement();
     }
 
@@ -120,10 +119,10 @@ public class WaAnimatedImage : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

@@ -71,12 +71,12 @@ public class WaDropdownItem : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-dropdown-item");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
         builder.AddAttributeIfNotNullOrEmpty(3, "style", Style);
-        
+
         // Add dropdown item-specific attributes
         builder.AddAttributeIfNotNullOrEmpty(10, "value", Value);
         if (Type != WaDropdownItemType.Normal)
@@ -84,10 +84,10 @@ public class WaDropdownItem : ComponentBase
         builder.AddAttribute(12, "checked", Checked);
         builder.AddAttribute(13, "disabled", Disabled);
         builder.AddAttributeIfNotNull(14, "variant", Variant?.ToHtmlValue());
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(15, __dropdownItemReference => Element = __dropdownItemReference);
-        
+
         // Add icon slot content
         if (IconContent is not null)
         {
@@ -96,13 +96,13 @@ public class WaDropdownItem : ComponentBase
             builder.AddContent(22, IconContent);
             builder.CloseElement();
         }
-        
+
         // Add main content (label)
         if (ChildContent is not null)
         {
             builder.AddContent(30, ChildContent);
         }
-        
+
         // Add details slot content
         if (DetailsContent is not null)
         {
@@ -111,7 +111,7 @@ public class WaDropdownItem : ComponentBase
             builder.AddContent(42, DetailsContent);
             builder.CloseElement();
         }
-        
+
         // Add submenu slot content
         if (SubmenuContent is not null)
         {
@@ -120,7 +120,7 @@ public class WaDropdownItem : ComponentBase
             builder.AddContent(52, SubmenuContent);
             builder.CloseElement();
         }
-        
+
         builder.CloseElement();
     }
 
@@ -134,10 +134,10 @@ public class WaDropdownItem : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

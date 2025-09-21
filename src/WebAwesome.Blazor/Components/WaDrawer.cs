@@ -74,12 +74,12 @@ public class WaDrawer : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-drawer");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
         builder.AddAttributeIfNotNullOrEmpty(3, "style", Style);
-        
+
         // Add drawer-specific attributes
         builder.AddAttributeIfNotNullOrEmpty(10, "label", Label);
         builder.AddAttribute(11, "open", Open);
@@ -87,20 +87,20 @@ public class WaDrawer : ComponentBase
             builder.AddAttribute(12, "placement", Placement.ToHtmlValue());
         builder.AddAttribute(13, "without-header", WithoutHeader);
         builder.AddAttribute(14, "light-dismiss", LightDismiss);
-        
+
         // Add event handlers
         if (OnShow.HasDelegate)
             builder.AddAttribute(20, "wa-show", OnShow);
-            
+
         if (OnHide.HasDelegate)
             builder.AddAttribute(21, "wa-hide", OnHide);
-            
+
         if (OnInitialFocus.HasDelegate)
             builder.AddAttribute(22, "wa-initial-focus", OnInitialFocus);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(23, __drawerReference => Element = __drawerReference);
-        
+
         // Add header actions slot content
         if (HeaderActionsContent is not null)
         {
@@ -109,13 +109,13 @@ public class WaDrawer : ComponentBase
             builder.AddContent(32, HeaderActionsContent);
             builder.CloseElement();
         }
-        
+
         // Add main content
         if (ChildContent is not null)
         {
             builder.AddContent(40, ChildContent);
         }
-        
+
         // Add footer slot content
         if (FooterContent is not null)
         {
@@ -124,7 +124,7 @@ public class WaDrawer : ComponentBase
             builder.AddContent(52, FooterContent);
             builder.CloseElement();
         }
-        
+
         builder.CloseElement();
     }
 
@@ -138,10 +138,10 @@ public class WaDrawer : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

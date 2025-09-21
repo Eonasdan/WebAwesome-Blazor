@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
-using WebAwesome.Blazor.Components;
 
 namespace WebAwesome.Blazor.Components;
 
@@ -65,7 +64,7 @@ public class WaTab : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-tab");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
@@ -74,26 +73,26 @@ public class WaTab : ComponentBase
         builder.AddAttribute(5, "active", Active);
         builder.AddAttribute(6, "disabled", Disabled);
         builder.AddAttribute(7, "closable", Closable);
-        
+
         // Add event handlers
         if (OnClick.HasDelegate)
             builder.AddAttribute(10, "onclick", OnClick);
-            
+
         if (OnFocus.HasDelegate)
             builder.AddAttribute(11, "onfocus", OnFocus);
-            
+
         if (OnBlur.HasDelegate)
             builder.AddAttribute(12, "onblur", OnBlur);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(13, __tabReference => Element = __tabReference);
-        
+
         // Add child content (label)
         if (ChildContent is not null)
         {
             builder.AddContent(20, ChildContent);
         }
-        
+
         builder.CloseElement();
     }
 
@@ -141,10 +140,10 @@ public class WaTab : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

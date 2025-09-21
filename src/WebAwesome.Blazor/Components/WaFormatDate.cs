@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
-using WebAwesome.Blazor.Components;
 
 namespace WebAwesome.Blazor.Components;
 
@@ -57,7 +56,7 @@ public class WaFormatDate : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-format-date");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
@@ -65,7 +64,7 @@ public class WaFormatDate : ComponentBase
         builder.AddAttributeIfNotNullOrEmpty(4, "date", Date);
         builder.AddAttributeIfNotNullOrEmpty(5, "lang", Lang);
         builder.AddAttributeIfNotNull(6, "hour-format", HourFormat?.ToHtmlValue());
-        
+
         // Add formatting options
         builder.AddAttributeIfNotNull(10, "weekday", Weekday?.ToHtmlValue());
         builder.AddAttributeIfNotNull(11, "era", Era?.ToHtmlValue());
@@ -76,10 +75,10 @@ public class WaFormatDate : ComponentBase
         builder.AddAttributeIfNotNull(16, "minute", Minute?.ToHtmlValue());
         builder.AddAttributeIfNotNull(17, "second", Second?.ToHtmlValue());
         builder.AddAttributeIfNotNull(18, "time-zone-name", TimeZoneName?.ToHtmlValue());
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(20, __formatDateReference => Element = __formatDateReference);
-        
+
         builder.CloseElement();
     }
 
@@ -93,10 +92,10 @@ public class WaFormatDate : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

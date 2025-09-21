@@ -68,13 +68,13 @@ public abstract class WaInputBase<TValue> : InputBase<TValue>
     protected string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         if (!string.IsNullOrEmpty(CssClass))
             classes.Add(CssClass);
-            
+
         return string.Join(' ', classes);
     }
 
@@ -112,22 +112,22 @@ public abstract class WaInputBase<TValue> : InputBase<TValue>
     protected int AddCommonEventHandlers(RenderTreeBuilder builder, int sequence)
     {
         var currentSequence = sequence;
-        
+
         if (OnFocus.HasDelegate)
             builder.AddAttribute(currentSequence++, "onfocus", OnFocus);
-            
+
         if (OnBlur.HasDelegate)
             builder.AddAttribute(currentSequence++, "onblur", OnBlur);
-            
+
         if (OnKeyDown.HasDelegate)
             builder.AddAttribute(currentSequence++, "onkeydown", OnKeyDown);
-            
+
         if (OnKeyUp.HasDelegate)
             builder.AddAttribute(currentSequence++, "onkeyup", OnKeyUp);
-            
+
         if (OnKeyPress.HasDelegate)
             builder.AddAttribute(currentSequence++, "onkeypress", OnKeyPress);
-            
+
         if (OnInput.HasDelegate)
             builder.AddAttribute(currentSequence++, "oninput", OnInput);
 
@@ -143,7 +143,7 @@ public abstract class WaInputBase<TValue> : InputBase<TValue>
     protected int AddLabelAndHintSlots(RenderTreeBuilder builder, int sequence)
     {
         var currentSequence = sequence;
-        
+
         if (MarkupLabel is not null)
         {
             builder.OpenElement(currentSequence++, "span");
@@ -151,7 +151,7 @@ public abstract class WaInputBase<TValue> : InputBase<TValue>
             builder.AddContent(currentSequence++, MarkupLabel);
             builder.CloseElement();
         }
-        
+
         if (MarkupHint is not null)
         {
             builder.OpenElement(currentSequence++, "span");

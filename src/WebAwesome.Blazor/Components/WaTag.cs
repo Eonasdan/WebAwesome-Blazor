@@ -62,12 +62,12 @@ public class WaTag : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-tag");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
         builder.AddAttributeIfNotNullOrEmpty(3, "style", Style);
-        
+
         // Add tag-specific attributes
         if (Variant != WaVariant.Neutral)
             builder.AddAttribute(10, "variant", Variant.ToHtmlValue());
@@ -77,20 +77,20 @@ public class WaTag : ComponentBase
             builder.AddAttribute(12, "size", Size.ToHtmlValue());
         builder.AddAttribute(13, "pill", Pill);
         builder.AddAttribute(14, "with-remove", WithRemove);
-        
+
         // Add event handlers
         if (OnRemove.HasDelegate)
             builder.AddAttribute(20, "wa-remove", OnRemove);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(21, __tagReference => Element = __tagReference);
-        
+
         // Add main content (label)
         if (ChildContent is not null)
         {
             builder.AddContent(30, ChildContent);
         }
-        
+
         builder.CloseElement();
     }
 
@@ -104,10 +104,10 @@ public class WaTag : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

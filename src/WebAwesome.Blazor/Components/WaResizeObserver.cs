@@ -66,28 +66,28 @@ public class WaResizeObserver : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-resize-observer");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
         builder.AddAttributeIfNotNullOrEmpty(3, "style", Style);
-        
+
         // Add resize observer attributes
         builder.AddAttribute(10, "disabled", Disabled);
 
         // Add event handlers
         if (OnResize.HasDelegate)
             builder.AddAttribute(20, "wa-resize", OnResize);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(30, __observerReference => Element = __observerReference);
-        
+
         // Add child content to observe
         if (ChildContent is not null)
         {
             builder.AddContent(40, ChildContent);
         }
-        
+
         builder.CloseElement();
     }
 
@@ -98,7 +98,7 @@ public class WaResizeObserver : ComponentBase
             // TODO: JS Interop needed
             // Initialize ResizeObserver to watch child elements
             // Call: await JSRuntime.InvokeVoidAsync("webAwesome.resizeObserver.initialize", Element);
-            
+
             // The JavaScript should:
             // 1. Create new ResizeObserver instance
             // 2. Observe all child elements within the component
@@ -111,7 +111,7 @@ public class WaResizeObserver : ComponentBase
             // 6. Handle disconnection/reconnection on component updates
             // 7. Respect disabled attribute to pause/resume observation
         }
-        
+
         await base.OnAfterRenderAsync(firstRender);
     }
 
@@ -120,7 +120,7 @@ public class WaResizeObserver : ComponentBase
         // TODO: JS Interop needed
         // Update observer state when Disabled parameter changes
         // Call: await JSRuntime.InvokeVoidAsync("webAwesome.resizeObserver.setDisabled", Element, Disabled);
-        
+
         await base.OnParametersSetAsync();
     }
 
@@ -164,10 +164,10 @@ public class WaResizeObserver : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

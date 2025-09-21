@@ -57,12 +57,12 @@ public class WaIcon : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-icon");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
         builder.AddAttributeIfNotNullOrEmpty(3, "style", Style);
-        
+
         // Add icon-specific attributes
         builder.AddAttributeIfNotNullOrEmpty(10, "name", Name);
         builder.AddAttributeIfNotNullOrEmpty(11, "library", Library);
@@ -71,17 +71,17 @@ public class WaIcon : ComponentBase
         builder.AddAttributeIfNotNullOrEmpty(14, "src", Src);
         builder.AddAttributeIfNotNullOrEmpty(15, "label", Label);
         builder.AddAttribute(16, "fixed-width", FixedWidth);
-        
+
         // Add event handlers
         if (OnLoad.HasDelegate)
             builder.AddAttribute(20, "wa-load", OnLoad);
-            
+
         if (OnError.HasDelegate)
             builder.AddAttribute(21, "wa-error", OnError);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(22, __iconReference => Element = __iconReference);
-        
+
         builder.CloseElement();
     }
 
@@ -95,10 +95,10 @@ public class WaIcon : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 
@@ -107,5 +107,5 @@ public class WaIcon : ComponentBase
 
 // TODO: Icon library registration
 // Icons depend on JavaScript icon libraries being registered via registerIconLibrary().
-// The default library is Font Awesome Free. Custom libraries can be registered for 
+// The default library is Font Awesome Free. Custom libraries can be registered for
 // additional icon sets. This should be documented for users to set up properly.

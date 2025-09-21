@@ -54,15 +54,15 @@ public class WaBreadcrumb : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-breadcrumb");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
         builder.AddAttributeIfNotNullOrEmpty(3, "style", Style);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(10, __breadcrumbReference => Element = __breadcrumbReference);
-        
+
         // Add separator slot content
         if (SeparatorContent is not null)
         {
@@ -71,13 +71,13 @@ public class WaBreadcrumb : ComponentBase
             builder.AddContent(22, SeparatorContent);
             builder.CloseElement();
         }
-        
+
         // Add main content (breadcrumb items)
         if (ChildContent is not null)
         {
             builder.AddContent(30, ChildContent);
         }
-        
+
         builder.CloseElement();
     }
 
@@ -91,10 +91,10 @@ public class WaBreadcrumb : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

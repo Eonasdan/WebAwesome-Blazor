@@ -63,12 +63,12 @@ public class WaInclude : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-include");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
         builder.AddAttributeIfNotNullOrEmpty(3, "style", Style);
-        
+
         // Add include-specific attributes
         builder.AddAttributeIfNotNullOrEmpty(10, "src", Src);
         if (Mode != WaMode.Cors)
@@ -79,10 +79,10 @@ public class WaInclude : ComponentBase
             builder.AddAttribute(20, "wa-load", OnLoad);
         if (OnError.HasDelegate)
             builder.AddAttribute(21, "wa-error", OnError);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(30, __includeReference => Element = __includeReference);
-        
+
         builder.CloseElement();
     }
 
@@ -93,7 +93,7 @@ public class WaInclude : ComponentBase
             // TODO: JS Interop needed
             // Initialize fetch mechanism for loading external content
             // Call: await JSRuntime.InvokeVoidAsync("webAwesome.include.initialize", Element);
-            
+
             // The JavaScript should:
             // 1. Set up fetch() calls with proper CORS mode
             // 2. Cache requests to avoid duplicate loads
@@ -101,7 +101,7 @@ public class WaInclude : ComponentBase
             // 4. Emit wa-load and wa-error events with proper event details
             // 5. Handle different modes (cors, no-cors, same-origin)
         }
-        
+
         await base.OnAfterRenderAsync(firstRender);
     }
 
@@ -132,10 +132,10 @@ public class WaInclude : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

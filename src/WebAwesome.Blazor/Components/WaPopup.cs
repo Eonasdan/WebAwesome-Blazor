@@ -104,12 +104,12 @@ public class WaPopup : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-popup");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
         builder.AddAttributeIfNotNullOrEmpty(3, "style", Style);
-        
+
         // Add positioning attributes
         if (Placement != WaPlacement.Top)
             builder.AddAttribute(10, "placement", Placement.ToHtmlValue());
@@ -172,7 +172,7 @@ public class WaPopup : ComponentBase
 
         // Add element reference capture
         builder.AddElementReferenceCapture(90, __popupReference => Element = __popupReference);
-        
+
         // Add anchor slot content
         if (AnchorContent is not null)
         {
@@ -181,13 +181,13 @@ public class WaPopup : ComponentBase
             builder.AddContent(102, AnchorContent);
             builder.CloseElement();
         }
-        
+
         // Add main popup content
         if (ChildContent is not null)
         {
             builder.AddContent(110, ChildContent);
         }
-        
+
         builder.CloseElement();
     }
 
@@ -220,10 +220,10 @@ public class WaPopup : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

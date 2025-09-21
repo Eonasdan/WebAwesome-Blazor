@@ -6,7 +6,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAwesome.Blazor.Base;
-using WebAwesome.Blazor.Components;
 
 namespace WebAwesome.Blazor.Components;
 
@@ -87,10 +86,10 @@ public class WaSelect : WaInputBase<string?>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-select");
-        
+
         // Add common attributes
         AddCommonAttributes(builder, 1);
-        
+
         // Add select-specific attributes
         builder.AddAttributeIfNotNullOrEmpty(20, "placeholder", Placeholder);
         builder.AddAttributeIfNotNull(21, "appearance", Appearance?.ToHtmlValue());
@@ -99,7 +98,7 @@ public class WaSelect : WaInputBase<string?>
         builder.AddAttribute(24, "multiple", Multiple);
         builder.AddAttributeIfNotNull(25, "max-options-visible", MaxOptionsVisible);
         builder.AddAttributeIfNotNull(26, "placement", Placement?.ToHtmlValue());
-        
+
         // Add value binding - handle both single and multiple selection
         if (Multiple)
         {
@@ -114,19 +113,19 @@ public class WaSelect : WaInputBase<string?>
             builder.AddAttribute(30, "value", CurrentValueAsString);
             builder.AddAttribute(31, "onchange", EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString));
         }
-        
+
         builder.SetUpdatesAttributeName("value");
-        
+
         // Add common event handlers
         AddCommonEventHandlers(builder, 40);
-        
+
         // Add select-specific event handlers
         if (OnClear.HasDelegate)
             builder.AddAttribute(50, "wa-clear", OnClear);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(51, __selectReference => Element = __selectReference);
-        
+
         // Add start slot content
         if (StartContent is not null)
         {
@@ -135,7 +134,7 @@ public class WaSelect : WaInputBase<string?>
             builder.AddContent(62, StartContent);
             builder.CloseElement();
         }
-        
+
         // Add end slot content
         if (EndContent is not null)
         {
@@ -144,16 +143,16 @@ public class WaSelect : WaInputBase<string?>
             builder.AddContent(67, EndContent);
             builder.CloseElement();
         }
-        
+
         // Add child content (options)
         if (ChildContent is not null)
         {
             builder.AddContent(70, ChildContent);
         }
-        
+
         // Add label and hint slots
         AddLabelAndHintSlots(builder, 80);
-        
+
         builder.CloseElement();
     }
 
@@ -177,13 +176,13 @@ public class WaSelect : WaInputBase<string?>
         if (args.Value is string stringValue)
         {
             // Parse the comma-separated values
-            var values = string.IsNullOrEmpty(stringValue) 
-                ? Array.Empty<string>() 
+            var values = string.IsNullOrEmpty(stringValue)
+                ? Array.Empty<string>()
                 : stringValue.Split(',', StringSplitOptions.RemoveEmptyEntries);
-            
+
             SelectedValues = values;
             await SelectedValuesChanged.InvokeAsync(values);
-            
+
             // Also update the single value for consistency (use first selected or null)
             var singleValue = values.FirstOrDefault();
             if (CurrentValueAsString != singleValue)
@@ -198,14 +197,14 @@ public class WaSelect : WaInputBase<string?>
     #region ------ Public Methods ------
 
     /// <summary>
-    /// Sets a custom validation message. This will prevent the form from submitting 
-    /// and make the browser display the error message you provide. 
+    /// Sets a custom validation message. This will prevent the form from submitting
+    /// and make the browser display the error message you provide.
     /// To clear the error, call this function with an empty string.
     /// </summary>
     /// <param name="message">The validation message to display, or empty string to clear</param>
     /// <remarks>
-    /// This method requires JavaScript interop to call the underlying web component's 
-    /// setCustomValidity method. Implementation depends on the Web Awesome library 
+    /// This method requires JavaScript interop to call the underlying web component's
+    /// setCustomValidity method. Implementation depends on the Web Awesome library
     /// being properly loaded in the page.
     /// </remarks>
     public Task SetCustomValidityAsync(string message)

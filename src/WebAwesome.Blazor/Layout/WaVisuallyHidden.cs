@@ -56,12 +56,12 @@ public class WaVisuallyHidden : ComponentBase
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
         builder.AddAttributeIfNotNullOrEmpty(3, "style", Style);
         builder.AddElementReferenceCapture(4, __elementReference => Element = __elementReference);
-        
+
         if (ChildContent is not null)
         {
             builder.AddContent(5, ChildContent);
         }
-        
+
         builder.CloseElement();
     }
 
@@ -75,7 +75,7 @@ public class WaVisuallyHidden : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         // Add appropriate visually hidden class
         if (Force)
         {
@@ -85,11 +85,11 @@ public class WaVisuallyHidden : ComponentBase
         {
             classes.Add("wa-visually-hidden");
         }
-        
+
         // Add user classes
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

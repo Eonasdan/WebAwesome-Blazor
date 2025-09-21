@@ -68,12 +68,12 @@ public class WaDropdown : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-dropdown");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
         builder.AddAttributeIfNotNullOrEmpty(3, "style", Style);
-        
+
         // Add dropdown-specific attributes
         builder.AddAttribute(10, "open", Open);
         if (Placement != WaPlacement.BottomStart)
@@ -82,20 +82,20 @@ public class WaDropdown : ComponentBase
             builder.AddAttribute(12, "distance", Distance);
         if (Skidding != 0)
             builder.AddAttribute(13, "skidding", Skidding);
-        
+
         // Add event handlers
         if (OnShow.HasDelegate)
             builder.AddAttribute(20, "wa-show", OnShow);
-            
+
         if (OnHide.HasDelegate)
             builder.AddAttribute(21, "wa-hide", OnHide);
-            
+
         if (OnSelect.HasDelegate)
             builder.AddAttribute(22, "wa-select", OnSelect);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(23, __dropdownReference => Element = __dropdownReference);
-        
+
         // Add trigger slot content
         if (TriggerContent is not null)
         {
@@ -104,13 +104,13 @@ public class WaDropdown : ComponentBase
             builder.AddContent(32, TriggerContent);
             builder.CloseElement();
         }
-        
+
         // Add main content (dropdown items)
         if (ChildContent is not null)
         {
             builder.AddContent(40, ChildContent);
         }
-        
+
         builder.CloseElement();
     }
 
@@ -124,10 +124,10 @@ public class WaDropdown : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

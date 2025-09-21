@@ -63,12 +63,12 @@ public class WaPopover : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-popover");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
         builder.AddAttributeIfNotNullOrEmpty(3, "style", Style);
-        
+
         // Add popover-specific attributes
         builder.AddAttributeIfNotNullOrEmpty(10, "for", For);
         if (Placement != WaPlacement.Top)
@@ -77,23 +77,23 @@ public class WaPopover : ComponentBase
         if (Distance != 8)
             builder.AddAttribute(13, "distance", Distance);
         builder.AddAttribute(14, "without-arrow", WithoutArrow);
-        
+
         // Add event handlers
         if (OnShow.HasDelegate)
             builder.AddAttribute(20, "wa-show", OnShow);
-            
+
         if (OnHide.HasDelegate)
             builder.AddAttribute(21, "wa-hide", OnHide);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(22, __popoverReference => Element = __popoverReference);
-        
+
         // Add content
         if (ChildContent is not null)
         {
             builder.AddContent(30, ChildContent);
         }
-        
+
         builder.CloseElement();
     }
 
@@ -107,10 +107,10 @@ public class WaPopover : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

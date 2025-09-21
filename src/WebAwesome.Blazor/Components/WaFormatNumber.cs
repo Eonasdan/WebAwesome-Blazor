@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
-using WebAwesome.Blazor.Components;
 
 namespace WebAwesome.Blazor.Components;
 
@@ -58,7 +57,7 @@ public class WaFormatNumber : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-format-number");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
@@ -68,7 +67,7 @@ public class WaFormatNumber : ComponentBase
         builder.AddAttributeIfNotNullOrEmpty(6, "lang", Lang);
         builder.AddAttributeIfNotNullOrEmpty(7, "currency", Currency);
         builder.AddAttributeIfNotNull(8, "currency-display", CurrencyDisplay?.ToHtmlValue());
-        
+
         // Add formatting options
         builder.AddAttributeIfNotNull(10, "minimum-integer-digits", MinimumIntegerDigits);
         builder.AddAttributeIfNotNull(11, "minimum-fraction-digits", MinimumFractionDigits);
@@ -78,10 +77,10 @@ public class WaFormatNumber : ComponentBase
         builder.AddAttributeIfNotNull(15, "notation", Notation?.ToHtmlValue());
         builder.AddAttributeIfNotNull(16, "compact-display", CompactDisplay?.ToHtmlValue());
         builder.AddAttributeIfNotNull(17, "use-grouping", UseGrouping);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(20, __formatNumberReference => Element = __formatNumberReference);
-        
+
         builder.CloseElement();
     }
 
@@ -95,10 +94,10 @@ public class WaFormatNumber : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

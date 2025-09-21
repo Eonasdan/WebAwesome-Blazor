@@ -43,19 +43,19 @@ public class WaSkeleton : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-skeleton");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
         builder.AddAttributeIfNotNullOrEmpty(3, "style", Style);
-        
+
         // Add skeleton-specific attributes
         if (Effect != WaEffect.None)
             builder.AddAttribute(10, "effect", Effect.ToHtmlValue());
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(11, __skeletonReference => Element = __skeletonReference);
-        
+
         builder.CloseElement();
     }
 
@@ -69,10 +69,10 @@ public class WaSkeleton : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

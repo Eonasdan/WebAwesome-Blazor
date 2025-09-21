@@ -76,12 +76,12 @@ public class WaZoomableFrame : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-zoomable-frame");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
         builder.AddAttributeIfNotNullOrEmpty(3, "style", Style);
-        
+
         // Add frame content attributes (srcdoc takes precedence over src)
         if (!string.IsNullOrEmpty(SrcDoc))
         {
@@ -91,12 +91,12 @@ public class WaZoomableFrame : ComponentBase
         {
             builder.AddAttributeIfNotNullOrEmpty(10, "src", Src);
         }
-        
+
         // Add zoom attributes
         if (Zoom != 1.0)
             builder.AddAttribute(20, "zoom", Zoom);
         builder.AddAttributeIfNotNullOrEmpty(21, "zoom-levels", ZoomLevels);
-        
+
         // Add control attributes
         builder.AddAttribute(30, "without-controls", WithoutControls);
         builder.AddAttribute(31, "without-interaction", WithoutInteraction);
@@ -108,10 +108,10 @@ public class WaZoomableFrame : ComponentBase
             builder.AddAttribute(41, "wa-load", OnLoad);
         if (OnError.HasDelegate)
             builder.AddAttribute(42, "wa-error", OnError);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(50, __frameReference => Element = __frameReference);
-        
+
         builder.CloseElement();
     }
 
@@ -122,7 +122,7 @@ public class WaZoomableFrame : ComponentBase
             // TODO: JS Interop needed
             // Initialize zoom and pan controls for the iframe
             // Call: await JSRuntime.InvokeVoidAsync("webAwesome.zoomableFrame.initialize", Element);
-            
+
             // The JavaScript should:
             // 1. Create iframe element with proper src/srcdoc
             // 2. Implement zoom controls (zoom in, zoom out, reset, specific levels)
@@ -135,7 +135,7 @@ public class WaZoomableFrame : ComponentBase
             // 9. Handle iframe load/error events
             // 10. Maintain accessibility for keyboard navigation
         }
-        
+
         await base.OnAfterRenderAsync(firstRender);
     }
 
@@ -207,10 +207,10 @@ public class WaZoomableFrame : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

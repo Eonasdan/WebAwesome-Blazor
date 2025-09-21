@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
-using WebAwesome.Blazor.Components;
 
 namespace WebAwesome.Blazor.Components;
 
@@ -85,7 +84,7 @@ public class WaButton : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-button");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
@@ -98,26 +97,26 @@ public class WaButton : ComponentBase
         builder.AddAttribute(9, "loading", Loading);
         builder.AddAttribute(10, "disabled", Disabled);
         builder.AddAttributeIfNotNull(11, "type", Type?.ToHtmlValue());
-        
+
         // Link behavior attributes
         builder.AddAttributeIfNotNullOrEmpty(12, "href", Href);
         builder.AddAttributeIfNotNullOrEmpty(13, "target", Target);
         builder.AddAttributeIfNotNullOrEmpty(14, "download", Download);
         builder.AddAttributeIfNotNullOrEmpty(15, "rel", Rel);
-        
+
         // Add event handlers
         if (OnClick.HasDelegate)
             builder.AddAttribute(20, "onclick", OnClick);
-            
+
         if (OnFocus.HasDelegate)
             builder.AddAttribute(21, "onfocus", OnFocus);
-            
+
         if (OnBlur.HasDelegate)
             builder.AddAttribute(22, "onblur", OnBlur);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(23, __buttonReference => Element = __buttonReference);
-        
+
         // Add start slot content
         if (StartContent is not null)
         {
@@ -126,13 +125,13 @@ public class WaButton : ComponentBase
             builder.AddContent(32, StartContent);
             builder.CloseElement();
         }
-        
+
         // Add main content (label)
         if (ChildContent is not null)
         {
             builder.AddContent(40, ChildContent);
         }
-        
+
         // Add end slot content
         if (EndContent is not null)
         {
@@ -141,7 +140,7 @@ public class WaButton : ComponentBase
             builder.AddContent(52, EndContent);
             builder.CloseElement();
         }
-        
+
         builder.CloseElement();
     }
 
@@ -155,10 +154,10 @@ public class WaButton : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

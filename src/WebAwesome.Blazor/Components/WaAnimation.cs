@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using WebAwesome.Blazor.Base;
-using WebAwesome.Blazor.Components;
 
 namespace WebAwesome.Blazor.Components;
 
@@ -70,7 +69,7 @@ public class WaAnimation : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-animation");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
@@ -84,26 +83,26 @@ public class WaAnimation : ComponentBase
         builder.AddAttribute(10, "iterations", Iterations == decimal.MaxValue ? "Infinity" : Iterations.ToString());
         builder.AddAttribute(11, "fill", Fill.ToHtmlValue());
         builder.AddAttribute(12, "playback-rate", PlaybackRate);
-        
+
         // Add event handlers
         if (OnCancel.HasDelegate)
             builder.AddAttribute(20, "wa-cancel", OnCancel);
-            
+
         if (OnFinish.HasDelegate)
             builder.AddAttribute(21, "wa-finish", OnFinish);
-            
+
         if (OnStart.HasDelegate)
             builder.AddAttribute(22, "wa-start", OnStart);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(23, __animationReference => Element = __animationReference);
-        
+
         // Add child content (element to animate)
         if (ChildContent is not null)
         {
             builder.AddContent(30, ChildContent);
         }
-        
+
         builder.CloseElement();
     }
 
@@ -199,10 +198,10 @@ public class WaAnimation : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

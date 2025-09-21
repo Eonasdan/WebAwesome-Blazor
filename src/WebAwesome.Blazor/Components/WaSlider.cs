@@ -4,7 +4,6 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using WebAwesome.Blazor.Base;
-using WebAwesome.Blazor.Components;
 
 namespace WebAwesome.Blazor.Components;
 
@@ -96,10 +95,10 @@ public class WaSlider : WaInputBase<decimal?>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-slider");
-        
+
         // Add common attributes
         AddCommonAttributes(builder, 1);
-        
+
         // Add slider-specific attributes
         builder.AddAttribute(20, "min", Min);
         builder.AddAttribute(21, "max", Max);
@@ -110,7 +109,7 @@ public class WaSlider : WaInputBase<decimal?>
         builder.AddAttribute(26, "with-tooltip", WithTooltip);
         builder.AddAttribute(27, "with-markers", WithMarkers);
         builder.AddAttributeIfNotNull(28, "tooltip-placement", TooltipPlacement?.ToHtmlValue());
-        
+
         // Add value binding - handle both single and range mode
         if (Range)
         {
@@ -125,28 +124,28 @@ public class WaSlider : WaInputBase<decimal?>
             builder.AddAttribute(30, "value", CurrentValue);
             builder.AddAttribute(31, "onchange", EventCallback.Factory.CreateBinder<decimal?>(this, __value => CurrentValue = __value, CurrentValue));
         }
-        
+
         builder.SetUpdatesAttributeName("value");
-        
+
         // Add common event handlers
         AddCommonEventHandlers(builder, 40);
-        
+
         // Add slider-specific event handlers
         if (OnValueChange.HasDelegate)
             builder.AddAttribute(50, "wa-change", OnValueChange);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(51, __sliderReference => Element = __sliderReference);
-        
+
         // Add child content (reference labels)
         if (ChildContent is not null)
         {
             builder.AddContent(60, ChildContent);
         }
-        
+
         // Add label and hint slots
         AddLabelAndHintSlots(builder, 70);
-        
+
         builder.CloseElement();
     }
 
@@ -195,7 +194,7 @@ public class WaSlider : WaInputBase<decimal?>
                     MinValue = minVal;
                     await MinValueChanged.InvokeAsync(minVal);
                 }
-                
+
                 if (decimal.TryParse(parts[1], out var maxVal))
                 {
                     MaxValue = maxVal;

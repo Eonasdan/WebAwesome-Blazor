@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using WebAwesome.Blazor.Base;
-using WebAwesome.Blazor.Components;
 
 namespace WebAwesome.Blazor.Components;
 
@@ -83,7 +82,7 @@ public class WaCopyButton : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-copy-button");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
@@ -95,22 +94,22 @@ public class WaCopyButton : ComponentBase
         builder.AddAttributeIfNotNullOrEmpty(8, "success-label", SuccessLabel);
         builder.AddAttributeIfNotNullOrEmpty(9, "error-label", ErrorLabel);
         builder.AddAttribute(10, "feedback-duration", FeedbackDuration);
-        
+
         // Add event handlers
         // TODO: These events need to be mapped to the Web Awesome component events
         // wa-copy, wa-success, wa-error
         if (OnCopy.HasDelegate)
             builder.AddAttribute(20, "wa-copy", OnCopy);
-            
+
         if (OnSuccess.HasDelegate)
             builder.AddAttribute(21, "wa-success", OnSuccess);
-            
+
         if (OnError.HasDelegate)
             builder.AddAttribute(22, "wa-error", OnError);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(23, __copyButtonReference => Element = __copyButtonReference);
-        
+
         // Add icon slots
         if (CopyIcon is not null)
         {
@@ -119,7 +118,7 @@ public class WaCopyButton : ComponentBase
             builder.AddContent(32, CopyIcon);
             builder.CloseElement();
         }
-        
+
         if (SuccessIcon is not null)
         {
             builder.OpenElement(40, "span");
@@ -127,7 +126,7 @@ public class WaCopyButton : ComponentBase
             builder.AddContent(42, SuccessIcon);
             builder.CloseElement();
         }
-        
+
         if (ErrorIcon is not null)
         {
             builder.OpenElement(50, "span");
@@ -135,7 +134,7 @@ public class WaCopyButton : ComponentBase
             builder.AddContent(52, ErrorIcon);
             builder.CloseElement();
         }
-        
+
         builder.CloseElement();
     }
 
@@ -168,10 +167,10 @@ public class WaCopyButton : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

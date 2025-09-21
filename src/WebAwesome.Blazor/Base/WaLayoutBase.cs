@@ -56,16 +56,16 @@ public abstract class WaLayoutBase : ComponentBase
     protected string GetCombinedCssClass(string baseLayoutClass)
     {
         var classes = new List<string> { baseLayoutClass };
-        
+
         if (Gap.HasValue)
             classes.Add($"wa-gap-{Gap.Value.ToHtmlValue()}");
-            
+
         if (AlignItems.HasValue)
             classes.Add($"wa-align-items-{AlignItems.Value.ToHtmlValue()}");
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 
@@ -84,14 +84,14 @@ public abstract class WaLayoutBase : ComponentBase
         builder.AddAttributeIfNotNullOrEmpty(sequence + 2, "class", GetCombinedCssClass(baseLayoutClass));
         builder.AddAttributeIfNotNullOrEmpty(sequence + 3, "style", Style);
         builder.AddElementReferenceCapture(sequence + 4, __elementReference => Element = __elementReference);
-        
+
         if (ChildContent is not null)
         {
             builder.AddContent(sequence + 5, ChildContent);
         }
-        
+
         builder.CloseElement();
-        
+
         return sequence + 6;
     }
 

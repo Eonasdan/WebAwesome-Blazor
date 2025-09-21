@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using WebAwesome.Blazor.Base;
-using WebAwesome.Blazor.Components;
 
 namespace WebAwesome.Blazor.Components;
 
@@ -68,7 +67,7 @@ public class WaCarousel : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-carousel");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
@@ -82,23 +81,23 @@ public class WaCarousel : ComponentBase
         builder.AddAttribute(10, "autoplay-interval", AutoplayInterval);
         builder.AddAttribute(11, "slides-per-page", SlidesPerPage);
         builder.AddAttribute(12, "slides-per-move", SlidesPerMove);
-        
+
         // Add event handlers
         // TODO: This event needs to be mapped to the Web Awesome component events
         if (OnSlideChange.HasDelegate)
         {
             // Custom event handler will need JavaScript interop
         }
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(20, __carouselReference => Element = __carouselReference);
-        
+
         // Add child content (carousel items)
         if (ChildContent is not null)
         {
             builder.AddContent(30, ChildContent);
         }
-        
+
         builder.CloseElement();
     }
 
@@ -162,10 +161,10 @@ public class WaCarousel : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

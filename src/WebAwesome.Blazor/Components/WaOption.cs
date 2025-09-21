@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
-using WebAwesome.Blazor.Components;
 
 namespace WebAwesome.Blazor.Components;
 
@@ -71,7 +70,7 @@ public class WaOption : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-option");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
@@ -79,14 +78,14 @@ public class WaOption : ComponentBase
         builder.AddAttributeIfNotNullOrEmpty(4, "value", Value);
         builder.AddAttribute(5, "selected", Selected);
         builder.AddAttribute(6, "disabled", Disabled);
-        
+
         // Add event handlers
         if (OnSelectedChange.HasDelegate)
             builder.AddAttribute(10, "wa-change", OnSelectedChange);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(11, __optionReference => Element = __optionReference);
-        
+
         // Add start slot content
         if (StartContent is not null)
         {
@@ -95,13 +94,13 @@ public class WaOption : ComponentBase
             builder.AddContent(22, StartContent);
             builder.CloseElement();
         }
-        
+
         // Add main content (label)
         if (ChildContent is not null)
         {
             builder.AddContent(30, ChildContent);
         }
-        
+
         // Add end slot content
         if (EndContent is not null)
         {
@@ -110,7 +109,7 @@ public class WaOption : ComponentBase
             builder.AddContent(42, EndContent);
             builder.CloseElement();
         }
-        
+
         builder.CloseElement();
     }
 
@@ -124,10 +123,10 @@ public class WaOption : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

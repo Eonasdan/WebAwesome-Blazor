@@ -56,12 +56,12 @@ public class WaAvatar : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-avatar");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
         builder.AddAttributeIfNotNullOrEmpty(3, "style", Style);
-        
+
         // Add avatar-specific attributes
         builder.AddAttributeIfNotNullOrEmpty(10, "image", Image);
         builder.AddAttributeIfNotNullOrEmpty(11, "initials", Initials);
@@ -70,10 +70,10 @@ public class WaAvatar : ComponentBase
         builder.AddAttributeIfNotNullOrEmpty(13, "label", Label);
         if (Shape != WaAvatarShape.Circle)
             builder.AddAttribute(14, "shape", Shape.ToHtmlValue());
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(15, __avatarReference => Element = __avatarReference);
-        
+
         // Add icon slot content if provided
         if (IconContent is not null)
         {
@@ -82,7 +82,7 @@ public class WaAvatar : ComponentBase
             builder.AddContent(22, IconContent);
             builder.CloseElement();
         }
-        
+
         builder.CloseElement();
     }
 
@@ -96,10 +96,10 @@ public class WaAvatar : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

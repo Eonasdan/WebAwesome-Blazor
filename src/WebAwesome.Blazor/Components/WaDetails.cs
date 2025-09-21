@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using WebAwesome.Blazor.Base;
-using WebAwesome.Blazor.Components;
 
 namespace WebAwesome.Blazor.Components;
 
@@ -80,7 +79,7 @@ public class WaDetails : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-details");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
@@ -91,17 +90,17 @@ public class WaDetails : ComponentBase
         builder.AddAttributeIfNotNull(7, "appearance", Appearance?.ToHtmlValue());
         builder.AddAttribute(8, "icon-position", IconPosition.ToHtmlValue());
         builder.AddAttributeIfNotNullOrEmpty(9, "name", Name);
-        
+
         // Add event handlers
         // TODO: This event needs to be mapped to the Web Awesome component events
         if (OnToggle.HasDelegate)
         {
             // Custom event handler will need JavaScript interop
         }
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(10, __detailsReference => Element = __detailsReference);
-        
+
         // Add summary slot content
         if (SummaryContent is not null)
         {
@@ -110,7 +109,7 @@ public class WaDetails : ComponentBase
             builder.AddContent(22, SummaryContent);
             builder.CloseElement();
         }
-        
+
         // Add expand icon slot content
         if (ExpandIcon is not null)
         {
@@ -119,7 +118,7 @@ public class WaDetails : ComponentBase
             builder.AddContent(32, ExpandIcon);
             builder.CloseElement();
         }
-        
+
         // Add collapse icon slot content
         if (CollapseIcon is not null)
         {
@@ -128,13 +127,13 @@ public class WaDetails : ComponentBase
             builder.AddContent(42, CollapseIcon);
             builder.CloseElement();
         }
-        
+
         // Add child content (main details content)
         if (ChildContent is not null)
         {
             builder.AddContent(50, ChildContent);
         }
-        
+
         builder.CloseElement();
     }
 
@@ -182,10 +181,10 @@ public class WaDetails : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

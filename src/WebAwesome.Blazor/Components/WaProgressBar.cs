@@ -54,27 +54,27 @@ public class WaProgressBar : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-progress-bar");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
         builder.AddAttributeIfNotNullOrEmpty(3, "style", Style);
-        
+
         // Add progress bar-specific attributes
         if (!Indeterminate)
             builder.AddAttribute(10, "value", Value);
         builder.AddAttributeIfNotNullOrEmpty(11, "label", Label);
         builder.AddAttribute(12, "indeterminate", Indeterminate);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(13, __progressBarReference => Element = __progressBarReference);
-        
+
         // Add content (progress text)
         if (ChildContent is not null)
         {
             builder.AddContent(20, ChildContent);
         }
-        
+
         builder.CloseElement();
     }
 
@@ -88,10 +88,10 @@ public class WaProgressBar : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 

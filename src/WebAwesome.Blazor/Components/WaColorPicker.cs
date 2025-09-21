@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
-using WebAwesome.Blazor.Components;
 
 namespace WebAwesome.Blazor.Components;
 
@@ -29,37 +28,37 @@ public class WaColorPicker : WaInputBase<string>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-color-picker");
-        
+
         // Add common attributes from base
         AddCommonAttributes(builder, 1);
-        
+
         // Add color picker-specific attributes
         builder.AddAttribute(20, "opacity", Opacity);
         builder.AddAttribute(21, "format", Format.ToHtmlValue());
         builder.AddAttribute(22, "without-format-toggle", WithoutFormatToggle);
         builder.AddAttributeIfNotNullOrEmpty(23, "swatches", Swatches);
         builder.AddAttribute(24, "value", CurrentValueAsString);
-        
+
         // Add value binding
         builder.AddAttribute(30, "onchange", EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString));
         builder.SetUpdatesAttributeName("value");
-        
+
         // Add common event handlers
         AddCommonEventHandlers(builder, 50);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(60, __colorPickerReference => Element = __colorPickerReference);
-        
+
         // Add label and hint slots
         AddLabelAndHintSlots(builder, 70);
-        
+
         builder.CloseElement();
     }
 
     /// <inheritdoc />
-    protected override bool TryParseValueFromString(string? value, out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out string result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
-        result = value;
+        result = value!;
         validationErrorMessage = null;
         return true;
     }

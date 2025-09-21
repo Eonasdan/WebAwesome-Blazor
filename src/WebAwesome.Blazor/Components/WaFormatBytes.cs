@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
-using WebAwesome.Blazor.Components;
 
 namespace WebAwesome.Blazor.Components;
 
@@ -46,7 +45,7 @@ public class WaFormatBytes : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "wa-format-bytes");
-        
+
         // Add common attributes
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
@@ -54,10 +53,10 @@ public class WaFormatBytes : ComponentBase
         builder.AddAttribute(4, "value", Value);
         builder.AddAttribute(5, "unit", Unit.ToHtmlValue());
         builder.AddAttributeIfNotNullOrEmpty(6, "lang", Lang);
-        
+
         // Add element reference capture
         builder.AddElementReferenceCapture(10, __formatBytesReference => Element = __formatBytesReference);
-        
+
         builder.CloseElement();
     }
 
@@ -71,10 +70,10 @@ public class WaFormatBytes : ComponentBase
     private string GetCombinedCssClass()
     {
         var classes = new List<string>();
-        
+
         if (!string.IsNullOrEmpty(Class))
             classes.Add(Class);
-            
+
         return string.Join(' ', classes);
     }
 
