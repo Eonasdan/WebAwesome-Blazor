@@ -27,7 +27,7 @@ jobs:
             9.0.x
 
       - name: Restore
-        run: dotnet restore WebAwesome.slnxx
+        run: dotnet restore WebAwesome.slnx
 
       - name: Build
         run: dotnet build WebAwesome.slnx -c Release --no-restore
