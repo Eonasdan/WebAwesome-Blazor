@@ -111,10 +111,7 @@ public class WaTab : ComponentBase
     /// <summary>
     /// Programmatically focuses the tab.
     /// </summary>
-    /// <remarks>
-    /// TODO: This method requires JavaScript interop to call the underlying wa-tab's focus method.
-    /// Implementation depends on the Web Awesome library being properly loaded in the page.
-    /// </remarks>
+    /// <exception cref="InvalidOperationException">Thrown when the component has not been rendered yet</exception>
     public async Task FocusAsync()
     {
         if (Element == null)
@@ -126,10 +123,7 @@ public class WaTab : ComponentBase
     /// <summary>
     /// Programmatically removes focus from the tab.
     /// </summary>
-    /// <remarks>
-    /// TODO: This method requires JavaScript interop to call the underlying wa-tab's blur method.
-    /// Implementation depends on the Web Awesome library being properly loaded in the page.
-    /// </remarks>
+    /// <exception cref="InvalidOperationException">Thrown when the component has not been rendered yet</exception>
     public async Task BlurAsync()
     {
         if (Element == null)

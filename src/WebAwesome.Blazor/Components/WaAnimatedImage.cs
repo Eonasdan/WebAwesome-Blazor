@@ -89,10 +89,7 @@ public class WaAnimatedImage : ComponentBase
     /// <summary>
     /// Starts playing the animation.
     /// </summary>
-    /// <remarks>
-    /// TODO: This method requires JavaScript interop to call the underlying wa-animated-image's play method.
-    /// Implementation depends on the Web Awesome library being properly loaded in the page.
-    /// </remarks>
+    /// <exception cref="InvalidOperationException">Thrown when the component has not been rendered yet</exception>
     public async Task PlayAsync()
     {
         if (Element == null)
@@ -104,10 +101,7 @@ public class WaAnimatedImage : ComponentBase
     /// <summary>
     /// Pauses the animation.
     /// </summary>
-    /// <remarks>
-    /// TODO: This method requires JavaScript interop to call the underlying wa-animated-image's pause method.
-    /// Implementation depends on the Web Awesome library being properly loaded in the page.
-    /// </remarks>
+    /// <exception cref="InvalidOperationException">Thrown when the component has not been rendered yet</exception>
     public async Task PauseAsync()
     {
         if (Element == null)

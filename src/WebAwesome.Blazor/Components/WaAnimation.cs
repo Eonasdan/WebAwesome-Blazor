@@ -121,10 +121,7 @@ public class WaAnimation : ComponentBase
     /// Sets custom keyframes for the animation.
     /// </summary>
     /// <param name="keyframes">JavaScript keyframes array object</param>
-    /// <remarks>
-    /// TODO: This method requires JavaScript interop to set the underlying wa-animation's keyframes property.
-    /// Implementation depends on the Web Awesome library being properly loaded in the page.
-    /// </remarks>
+    /// <exception cref="InvalidOperationException">Thrown when the component has not been rendered yet</exception>
     public async Task SetKeyframesAsync(object keyframes)
     {
         if (Element == null)
@@ -149,10 +146,7 @@ public class WaAnimation : ComponentBase
     /// <summary>
     /// Finishes the current animation immediately.
     /// </summary>
-    /// <remarks>
-    /// TODO: This method requires JavaScript interop to call the underlying wa-animation's finish method.
-    /// Implementation depends on the Web Awesome library being properly loaded in the page.
-    /// </remarks>
+    /// <exception cref="InvalidOperationException">Thrown when the component has not been rendered yet</exception>
     public async Task FinishAsync()
     {
         if (Element == null)
@@ -178,10 +172,7 @@ public class WaAnimation : ComponentBase
     /// Sets the current time of the animation.
     /// </summary>
     /// <param name="time">The time in milliseconds</param>
-    /// <remarks>
-    /// TODO: This method requires JavaScript interop to set the underlying wa-animation's currentTime property.
-    /// Implementation depends on the Web Awesome library being properly loaded in the page.
-    /// </remarks>
+    /// <exception cref="InvalidOperationException">Thrown when the component has not been rendered yet</exception>
     public async Task SetCurrentTimeAsync(decimal time)
     {
         if (Element == null)

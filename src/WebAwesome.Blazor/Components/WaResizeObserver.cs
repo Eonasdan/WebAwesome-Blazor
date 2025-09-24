@@ -101,21 +101,7 @@ public class WaResizeObserver : ComponentBase
     {
         if (firstRender)
         {
-            // TODO: JS Interop needed
-            // Initialize ResizeObserver to watch child elements
-            // Call: await JSRuntime.InvokeVoidAsync("webAwesome.resizeObserver.initialize", Element);
-
-            // The JavaScript should:
-            // 1. Create new ResizeObserver instance
-            // 2. Observe all child elements within the component
-            // 3. When resize occurs, emit wa-resize event with ResizeObserverEntry array
-            // 4. Handle disabled state to start/stop observation
-            // 5. ResizeObserverEntry should include:
-            //    - target: the observed element
-            //    - contentRect: the new dimensions
-            //    - borderBoxSize, contentBoxSize arrays
-            // 6. Handle disconnection/reconnection on component updates
-            // 7. Respect disabled attribute to pause/resume observation
+            await JSInterop.InvokeMethodAsync(Element.Value, "initialize");
         }
 
         await base.OnAfterRenderAsync(firstRender);
@@ -123,9 +109,10 @@ public class WaResizeObserver : ComponentBase
 
     protected override async Task OnParametersSetAsync()
     {
-        // TODO: JS Interop needed
-        // Update observer state when Disabled parameter changes
-        // Call: await JSRuntime.InvokeVoidAsync("webAwesome.resizeObserver.setDisabled", Element, Disabled);
+        if (Element != null)
+        {
+            await JSInterop.SetPropertyAsync(Element.Value, "disabled", Disabled);
+        }
 
         await base.OnParametersSetAsync();
     }

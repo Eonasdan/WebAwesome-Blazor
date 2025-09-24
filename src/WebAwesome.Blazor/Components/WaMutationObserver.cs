@@ -113,24 +113,7 @@ public class WaMutationObserver : ComponentBase
     {
         if (firstRender)
         {
-            // TODO: JS Interop needed
-            // Initialize MutationObserver with specified options
-            // Call: await JSRuntime.InvokeVoidAsync("webAwesome.mutationObserver.initialize", Element);
-
-            // The JavaScript should:
-            // 1. Create new MutationObserver instance
-            // 2. Parse component attributes to build MutationObserverInit options:
-            //    - attributes: attr attribute value
-            //    - childList: child-list attribute value
-            //    - characterData: char-data attribute value
-            //    - subtree: subtree attribute value
-            //    - attributeOldValue: attribute-old-value attribute value
-            //    - characterDataOldValue: character-data-old-value attribute value
-            //    - attributeFilter: parse attribute-filter as array of strings
-            // 3. Observe the component's child content with these options
-            // 4. When mutations occur, emit wa-mutation event with MutationRecord array
-            // 5. Validate that at least one of attr, child-list, or char-data is true
-            // 6. Handle disconnection/reconnection on component updates
+            await JSInterop.InvokeMethodAsync(Element.Value, "initialize");
         }
 
         await base.OnAfterRenderAsync(firstRender);
