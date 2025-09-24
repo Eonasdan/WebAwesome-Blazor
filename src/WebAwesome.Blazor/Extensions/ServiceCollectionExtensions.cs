@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using WebAwesome.Blazor.Base;
+using WebAwesome.Blazor.Services;
 
 namespace WebAwesome.Blazor.Extensions;
 
@@ -14,12 +15,13 @@ public static class ServiceCollectionExtensions
     /// <param name="services">The IServiceCollection to add services to</param>
     /// <returns>The IServiceCollection so that additional calls can be chained</returns>
     /// <remarks>
-    /// This method registers the WebAwesomeJSInterop service which is required for
-    /// JavaScript interop functionality such as setCustomValidity() on form controls.
+    /// This method registers the WebAwesomeJSInterop service and WaIconLibraryService
+    /// which are required for JavaScript interop functionality and icon library management.
     /// </remarks>
     public static IServiceCollection AddWebAwesome(this IServiceCollection services)
     {
         services.AddSingleton<WebAwesomeJSInterop>();
+        services.AddSingleton<WaIconLibraryService>();
         return services;
     }
 }

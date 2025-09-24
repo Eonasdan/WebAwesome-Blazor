@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
 using System.Threading.Tasks;
+using WebAwesome.Blazor.Models;
 
 namespace WebAwesome.Blazor.Base;
 
@@ -177,6 +178,114 @@ public class WebAwesomeJSInterop
         {
             // JS runtime is disconnected, return default value silently
             return default(T)!;
+        }
+    }
+
+    /// <summary>
+    /// Registers a custom icon library with Web Awesome
+    /// </summary>
+    /// <param name="name">Name of the icon library</param>
+    /// <param name="options">Configuration options for the library</param>
+    /// <returns>A task that represents the asynchronous operation</returns>
+    /// <exception cref="ArgumentNullException">Thrown when name is null or empty</exception>
+    /// <exception cref="InvalidOperationException">Thrown when the registration fails</exception>
+    public async Task RegisterIconLibraryAsync(string name, IconLibraryOptions options)
+    {
+        if (string.IsNullOrEmpty(name))
+            throw new ArgumentNullException(nameof(name));
+
+        if (options == null)
+            throw new ArgumentNullException(nameof(options));
+
+        try
+        {
+            var module = await moduleTask.Value;
+            await module.InvokeVoidAsync("registerIconLibrary", name, options);
+        }
+        catch (JSException ex)
+        {
+            throw new InvalidOperationException($"Failed to register icon library '{name}': {ex.Message}", ex);
+        }
+        catch (JSDisconnectedException)
+        {
+            // JS runtime is disconnected, ignore silently
+        }
+    }
+
+    /// <summary>
+    /// Unregisters an icon library from Web Awesome
+    /// </summary>
+    /// <param name="name">Name of the icon library to remove</param>
+    /// <returns>A task that represents the asynchronous operation</returns>
+    /// <exception cref="ArgumentNullException">Thrown when name is null or empty</exception>
+    /// <exception cref="InvalidOperationException">Thrown when the unregistration fails</exception>
+    public async Task UnregisterIconLibraryAsync(string name)
+    {
+        if (string.IsNullOrEmpty(name))
+            throw new ArgumentNullException(nameof(name));
+
+        try
+        {
+            var module = await moduleTask.Value;
+            await module.InvokeVoidAsync("unregisterIconLibrary", name);
+        }
+        catch (JSException ex)
+        {
+            throw new InvalidOperationException($"Failed to unregister icon library '{name}': {ex.Message}", ex);
+        }
+        catch (JSDisconnectedException)
+        {
+            // JS runtime is disconnected, ignore silently
+        }
+    }
+
+    /// <summary>
+    /// Sets the default icon family for Web Awesome icons
+    /// </summary>
+    /// <param name="family">The icon family name (e.g., "classic", "sharp", "brands")</param>
+    /// <returns>A task that represents the asynchronous operation</returns>
+    /// <exception cref="ArgumentNullException">Thrown when family is null or empty</exception>
+    /// <exception cref="InvalidOperationException">Thrown when setting the family fails</exception>
+    public async Task SetDefaultIconFamilyAsync(string family)
+    {
+        if (string.IsNullOrEmpty(family))
+            throw new ArgumentNullException(nameof(family));
+
+        try
+        {
+            var module = await moduleTask.Value;
+            await module.InvokeVoidAsync("setDefaultIconFamily", family);
+        }
+        catch (JSException ex)
+        {
+            throw new InvalidOperationException($"Failed to set default icon family to '{family}': {ex.Message}", ex);
+        }
+        catch (JSDisconnectedException)
+        {
+            // JS runtime is disconnected, ignore silently
+        }
+    }
+
+    /// <summary>
+    /// Gets the current default icon family
+    /// </summary>
+    /// <returns>The current default icon family name</returns>
+    /// <exception cref="InvalidOperationException">Thrown when getting the family fails</exception>
+    public async Task<string> GetDefaultIconFamilyAsync()
+    {
+        try
+        {
+            var module = await moduleTask.Value;
+            return await module.InvokeAsync<string>("getDefaultIconFamily");
+        }
+        catch (JSException ex)
+        {
+            throw new InvalidOperationException($"Failed to get default icon family: {ex.Message}", ex);
+        }
+        catch (JSDisconnectedException)
+        {
+            // JS runtime is disconnected, return default value silently
+            return "classic";
         }
     }
 
