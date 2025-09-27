@@ -4,7 +4,7 @@ using WebAwesome.Blazor.Services;
 using WebAwesome.Blazor.Base;
 using WebAwesome.Blazor.Models;
 using Xunit;
-using NSubstitute;
+using Moq;
 
 namespace WebAwesome.Blazor.Tests.Services;
 
@@ -13,13 +13,13 @@ namespace WebAwesome.Blazor.Tests.Services;
 /// </summary>
 public class WaIconLibraryServiceTests
 {
-    private readonly WebAwesomeJSInterop mockJSInterop;
+    private readonly Mock<WebAwesomeJSInterop> mockJSInterop;
     private readonly WaIconLibraryService service;
 
     public WaIconLibraryServiceTests()
     {
-        mockJSInterop = Substitute.For<WebAwesomeJSInterop>(Substitute.For<Microsoft.JSInterop.IJSRuntime>());
-        service = new WaIconLibraryService(mockJSInterop);
+        mockJSInterop = new Mock<WebAwesomeJSInterop>(new Mock<Microsoft.JSInterop.IJSRuntime>().Object);
+        service = new WaIconLibraryService(mockJSInterop.Object);
     }
 
     [Fact]
@@ -39,8 +39,8 @@ public class WaIconLibraryServiceTests
         await service.RegisterFontAwesomeProAsync(kitCode);
 
         // Assert
-        await mockJSInterop.Received(1).RegisterIconLibraryAsync("fa-pro", Arg.Is<IconLibraryOptions>(
-            opts => opts.Resolver == $"https://kit.fontawesome.com/{kitCode}/{{family}}/{{variant}}/{{name}}.svg"));
+        mockJSInterop.Verify(x => x.RegisterIconLibraryAsync("fa-pro", It.Is<IconLibraryOptions>(
+            opts => opts.Resolver == $"https://kit.fontawesome.com/{kitCode}/{{family}}/{{variant}}/{{name}}.svg")), Times.Once);
     }
 
     [Fact]
@@ -58,8 +58,8 @@ public class WaIconLibraryServiceTests
         await service.RegisterHeroiconsAsync();
 
         // Assert
-        await mockJSInterop.Received(1).RegisterIconLibraryAsync("heroicons", Arg.Is<IconLibraryOptions>(
-            opts => opts.Resolver == "https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/{variant}/{name}.svg"));
+        mockJSInterop.Verify(x => x.RegisterIconLibraryAsync("heroicons", It.Is<IconLibraryOptions>(
+            opts => opts.Resolver == "https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/{variant}/{name}.svg")), Times.Once);
     }
 
     [Fact]
@@ -72,8 +72,8 @@ public class WaIconLibraryServiceTests
         await service.RegisterLucideAsync(version);
 
         // Assert
-        await mockJSInterop.Received(1).RegisterIconLibraryAsync("lucide", Arg.Is<IconLibraryOptions>(
-            opts => opts.Resolver == $"https://cdn.jsdelivr.net/npm/lucide@{version}/icons/{{name}}.svg"));
+        mockJSInterop.Verify(x => x.RegisterIconLibraryAsync("lucide", It.Is<IconLibraryOptions>(
+            opts => opts.Resolver == $"https://cdn.jsdelivr.net/npm/lucide@{version}/icons/{{name}}.svg")), Times.Once);
     }
 
     [Fact]
@@ -87,7 +87,7 @@ public class WaIconLibraryServiceTests
         await service.RegisterIconLibraryAsync(name, options);
 
         // Assert
-        await mockJSInterop.Received(1).RegisterIconLibraryAsync(name, options);
+        mockJSInterop.Verify(x => x.RegisterIconLibraryAsync(name, options), Times.Once);
     }
 
     [Fact]
@@ -100,7 +100,7 @@ public class WaIconLibraryServiceTests
         await service.UnregisterIconLibraryAsync(name);
 
         // Assert
-        await mockJSInterop.Received(1).UnregisterIconLibraryAsync(name);
+        mockJSInterop.Verify(x => x.UnregisterIconLibraryAsync(name), Times.Once);
     }
 
     [Fact]
@@ -113,7 +113,7 @@ public class WaIconLibraryServiceTests
         await service.SetDefaultIconFamilyAsync(family);
 
         // Assert
-        await mockJSInterop.Received(1).SetDefaultIconFamilyAsync(family);
+        mockJSInterop.Verify(x => x.SetDefaultIconFamilyAsync(family), Times.Once);
     }
 
     [Fact]
@@ -121,13 +121,13 @@ public class WaIconLibraryServiceTests
     {
         // Arrange
         const string expectedFamily = "classic";
-        mockJSInterop.GetDefaultIconFamilyAsync().Returns(expectedFamily);
+        mockJSInterop.Setup(x => x.GetDefaultIconFamilyAsync()).ReturnsAsync(expectedFamily);
 
         // Act
         var result = await service.GetDefaultIconFamilyAsync();
 
         // Assert
         Assert.Equal(expectedFamily, result);
-        await mockJSInterop.Received(1).GetDefaultIconFamilyAsync();
+        mockJSInterop.Verify(x => x.GetDefaultIconFamilyAsync(), Times.Once);
     }
 }

@@ -189,7 +189,7 @@ public class WebAwesomeJSInterop
     /// <returns>A task that represents the asynchronous operation</returns>
     /// <exception cref="ArgumentNullException">Thrown when name is null or empty</exception>
     /// <exception cref="InvalidOperationException">Thrown when the registration fails</exception>
-    public async Task RegisterIconLibraryAsync(string name, IconLibraryOptions options)
+    public virtual async Task RegisterIconLibraryAsync(string name, IconLibraryOptions options)
     {
         if (string.IsNullOrEmpty(name))
             throw new ArgumentNullException(nameof(name));
@@ -219,7 +219,7 @@ public class WebAwesomeJSInterop
     /// <returns>A task that represents the asynchronous operation</returns>
     /// <exception cref="ArgumentNullException">Thrown when name is null or empty</exception>
     /// <exception cref="InvalidOperationException">Thrown when the unregistration fails</exception>
-    public async Task UnregisterIconLibraryAsync(string name)
+    public virtual async Task UnregisterIconLibraryAsync(string name)
     {
         if (string.IsNullOrEmpty(name))
             throw new ArgumentNullException(nameof(name));
@@ -246,7 +246,7 @@ public class WebAwesomeJSInterop
     /// <returns>A task that represents the asynchronous operation</returns>
     /// <exception cref="ArgumentNullException">Thrown when family is null or empty</exception>
     /// <exception cref="InvalidOperationException">Thrown when setting the family fails</exception>
-    public async Task SetDefaultIconFamilyAsync(string family)
+    public virtual async Task SetDefaultIconFamilyAsync(string family)
     {
         if (string.IsNullOrEmpty(family))
             throw new ArgumentNullException(nameof(family));
@@ -271,7 +271,7 @@ public class WebAwesomeJSInterop
     /// </summary>
     /// <returns>The current default icon family name</returns>
     /// <exception cref="InvalidOperationException">Thrown when getting the family fails</exception>
-    public async Task<string> GetDefaultIconFamilyAsync()
+    public virtual async Task<string> GetDefaultIconFamilyAsync()
     {
         try
         {

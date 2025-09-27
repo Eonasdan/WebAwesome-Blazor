@@ -20,8 +20,8 @@ public static class ServiceCollectionExtensions
     /// </remarks>
     public static IServiceCollection AddWebAwesome(this IServiceCollection services)
     {
-        services.AddSingleton<WebAwesomeJSInterop>();
-        services.AddSingleton<WaIconLibraryService>();
+        services.AddScoped<WebAwesomeJSInterop>();
+        services.AddScoped<WaIconLibraryService>();
         return services;
     }
 }
