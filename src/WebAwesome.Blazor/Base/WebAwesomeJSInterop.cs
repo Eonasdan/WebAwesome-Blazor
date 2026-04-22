@@ -11,13 +11,13 @@ namespace WebAwesome.Blazor.Base;
 /// </summary>
 public class WebAwesomeJSInterop
 {
-    private readonly IJSRuntime jsRuntime;
-    private readonly Lazy<Task<IJSObjectReference>> moduleTask;
+    private readonly IJSRuntime _jsRuntime;
+    private readonly Lazy<Task<IJSObjectReference>> _moduleTask;
 
     public WebAwesomeJSInterop(IJSRuntime jsRuntime)
     {
-        this.jsRuntime = jsRuntime ?? throw new ArgumentNullException(nameof(jsRuntime));
-        moduleTask = new Lazy<Task<IJSObjectReference>>(() => LoadModuleAsync());
+        _jsRuntime = jsRuntime ?? throw new ArgumentNullException(nameof(jsRuntime));
+        _moduleTask = new Lazy<Task<IJSObjectReference>>(LoadModuleAsync);
     }
 
     /// <summary>
@@ -33,7 +33,7 @@ public class WebAwesomeJSInterop
 
         try
         {
-            var module = await moduleTask.Value;
+            var module = await _moduleTask.Value;
             await module.InvokeVoidAsync("setCustomValidity", elementReference, message ?? string.Empty);
         }
         catch (JSException ex)
@@ -57,7 +57,8 @@ public class WebAwesomeJSInterop
     /// <exception cref="ArgumentException">Thrown when element reference is invalid</exception>
     /// <exception cref="ArgumentNullException">Thrown when methodName is null</exception>
     /// <exception cref="InvalidOperationException">Thrown when the method call fails</exception>
-    public async Task<T> InvokeMethodAsync<T>(ElementReference elementReference, string methodName, params object[] args)
+    public async Task<T> InvokeMethodAsync<T>(ElementReference elementReference, string methodName,
+        params object[] args)
     {
         if (elementReference.Id == null)
             throw new ArgumentException("Element reference is not valid", nameof(elementReference));
@@ -67,8 +68,9 @@ public class WebAwesomeJSInterop
 
         try
         {
-            var module = await moduleTask.Value;
-            return await module.InvokeAsync<T>("invokeMethod", elementReference, methodName, args ?? Array.Empty<object>());
+            var module = await _moduleTask.Value;
+            return await module.InvokeAsync<T>("invokeMethod", elementReference, methodName,
+                args ?? Array.Empty<object>());
         }
         catch (JSException ex)
         {
@@ -101,7 +103,7 @@ public class WebAwesomeJSInterop
 
         try
         {
-            var module = await moduleTask.Value;
+            var module = await _moduleTask.Value;
             await module.InvokeVoidAsync("invokeMethod", elementReference, methodName, args ?? Array.Empty<object>());
         }
         catch (JSException ex)
@@ -134,7 +136,7 @@ public class WebAwesomeJSInterop
 
         try
         {
-            var module = await moduleTask.Value;
+            var module = await _moduleTask.Value;
             await module.InvokeVoidAsync("setProperty", elementReference, propertyName, value);
         }
         catch (JSException ex)
@@ -167,7 +169,7 @@ public class WebAwesomeJSInterop
 
         try
         {
-            var module = await moduleTask.Value;
+            var module = await _moduleTask.Value;
             return await module.InvokeAsync<T>("getProperty", elementReference, propertyName);
         }
         catch (JSException ex)
@@ -199,7 +201,7 @@ public class WebAwesomeJSInterop
 
         try
         {
-            var module = await moduleTask.Value;
+            var module = await _moduleTask.Value;
             await module.InvokeVoidAsync("registerIconLibrary", name, options);
         }
         catch (JSException ex)
@@ -226,7 +228,7 @@ public class WebAwesomeJSInterop
 
         try
         {
-            var module = await moduleTask.Value;
+            var module = await _moduleTask.Value;
             await module.InvokeVoidAsync("unregisterIconLibrary", name);
         }
         catch (JSException ex)
@@ -253,7 +255,7 @@ public class WebAwesomeJSInterop
 
         try
         {
-            var module = await moduleTask.Value;
+            var module = await _moduleTask.Value;
             await module.InvokeVoidAsync("setDefaultIconFamily", family);
         }
         catch (JSException ex)
@@ -275,7 +277,7 @@ public class WebAwesomeJSInterop
     {
         try
         {
-            var module = await moduleTask.Value;
+            var module = await _moduleTask.Value;
             return await module.InvokeAsync<string>("getDefaultIconFamily");
         }
         catch (JSException ex)
@@ -294,15 +296,45 @@ public class WebAwesomeJSInterop
     /// </summary>
     public async ValueTask DisposeAsync()
     {
-        if (moduleTask.IsValueCreated)
+        if (_moduleTask.IsValueCreated)
         {
-            var module = await moduleTask.Value;
+            var module = await _moduleTask.Value;
             await module.DisposeAsync();
+        }
+    }
+
+    public async Task SetValueAndNotifyAsync(
+        ElementReference elementReference,
+        object? value,
+        bool dispatchInput = true,
+        bool dispatchChange = false)
+    {
+        if (elementReference.Id == null)
+            throw new ArgumentException("Element reference is not valid", nameof(elementReference));
+
+        try
+        {
+            var module = await _moduleTask.Value;
+            await module.InvokeVoidAsync(
+                "setValueAndNotify",
+                elementReference,
+                value ?? string.Empty,
+                dispatchInput,
+                dispatchChange);
+        }
+        catch (JSException ex)
+        {
+            throw new InvalidOperationException($"Failed to set value and notify: {ex.Message}", ex);
+        }
+        catch (JSDisconnectedException)
+        {
+            // JS runtime is disconnected, ignore silently
         }
     }
 
     private async Task<IJSObjectReference> LoadModuleAsync()
     {
-        return await jsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/WebAwesome.Blazor/webawesome-interop.js");
+        return await _jsRuntime.InvokeAsync<IJSObjectReference>("import",
+            "./_content/WebAwesome.Blazor/webawesome-interop.js");
     }
 }

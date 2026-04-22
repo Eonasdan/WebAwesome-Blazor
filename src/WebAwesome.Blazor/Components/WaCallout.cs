@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
@@ -74,7 +73,7 @@ public class WaCallout : ComponentBase
             builder.AddAttribute(12, "size", Size.ToHtmlValue());
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(13, __calloutReference => Element = __calloutReference);
+        builder.AddElementReferenceCapture(13, calloutReference => Element = calloutReference);
 
         // Add icon slot content
         if (IconContent is not null)

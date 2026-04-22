@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
@@ -111,7 +110,7 @@ public class WaSelect : WaInputBase<string?>
         {
             // For single selection, use standard binding
             builder.AddAttribute(30, "value", CurrentValueAsString);
-            builder.AddAttribute(31, "onchange", EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString));
+            builder.AddAttribute(31, "onchange", EventCallback.Factory.CreateBinder<string?>(this, value => CurrentValueAsString = value, CurrentValueAsString));
         }
 
         builder.SetUpdatesAttributeName("value");
@@ -124,7 +123,7 @@ public class WaSelect : WaInputBase<string?>
             builder.AddAttribute(50, "wa-clear", OnClear);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(51, __selectReference => Element = __selectReference);
+        builder.AddElementReferenceCapture(51, selectReference => Element = selectReference);
 
         // Add start slot content
         if (StartContent is not null)

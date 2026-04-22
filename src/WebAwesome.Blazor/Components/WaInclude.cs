@@ -20,7 +20,7 @@ public class WaInclude : ComponentBase
 {
     #region ------ Dependency Injection ------
 
-    [Inject] protected WebAwesomeJSInterop JSInterop { get; set; } = default!;
+    [Inject] protected WebAwesomeJSInterop JSInterop { get; set; } = null!;
 
     #endregion
 
@@ -87,7 +87,7 @@ public class WaInclude : ComponentBase
             builder.AddAttribute(21, "wa-error", OnError);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(30, __includeReference => Element = __includeReference);
+        builder.AddElementReferenceCapture(30, includeReference => Element = includeReference);
 
         builder.CloseElement();
     }

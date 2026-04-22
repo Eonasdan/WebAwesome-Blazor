@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
@@ -56,7 +55,7 @@ public class WaCarouselItem : ComponentBase
         builder.AddAttributeIfNotNullOrEmpty(3, "style", Style);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(10, __carouselItemReference => Element = __carouselItemReference);
+        builder.AddElementReferenceCapture(10, carouselItemReference => Element = carouselItemReference);
 
         // Add child content
         if (ChildContent is not null)

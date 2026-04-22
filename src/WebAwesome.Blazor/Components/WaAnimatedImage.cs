@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -17,7 +16,7 @@ public class WaAnimatedImage : ComponentBase
 {
     #region ------ Injected Services ------
 
-    [Inject] private WebAwesomeJSInterop JSInterop { get; set; } = default!;
+    [Inject] private WebAwesomeJSInterop JSInterop { get; set; } = null!;
 
     #endregion
 
@@ -77,7 +76,7 @@ public class WaAnimatedImage : ComponentBase
             builder.AddAttribute(11, "error", OnError);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(20, __animatedImageReference => Element = __animatedImageReference);
+        builder.AddElementReferenceCapture(20, animatedImageReference => Element = animatedImageReference);
 
         builder.CloseElement();
     }

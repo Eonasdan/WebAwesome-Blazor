@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
@@ -21,7 +20,7 @@ public class WaPopup : ComponentBase
 {
     #region ------ Dependency Injection ------
 
-    [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
+    [Inject] private IJSRuntime JSRuntime { get; set; } = null!;
 
     #endregion
 
@@ -171,7 +170,7 @@ public class WaPopup : ComponentBase
         builder.AddAttributeIfNotNullOrEmpty(80, "boundary", Boundary);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(90, __popupReference => Element = __popupReference);
+        builder.AddElementReferenceCapture(90, popupReference => Element = popupReference);
 
         // Add anchor slot content
         if (AnchorContent is not null)

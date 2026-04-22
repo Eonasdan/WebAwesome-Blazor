@@ -16,7 +16,7 @@ public class WaSplitPanel : ComponentBase
 {
     #region ------ Dependency Injection ------
 
-    [Inject] protected WebAwesomeJSInterop JSInterop { get; set; } = default!;
+    [Inject] protected WebAwesomeJSInterop JSInterop { get; set; } = null!;
 
     #endregion
 
@@ -99,7 +99,7 @@ public class WaSplitPanel : ComponentBase
             builder.AddAttribute(20, "wa-reposition", EventCallback.Factory.Create<ChangeEventArgs>(this, HandleRepositionEvent));
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(20, __splitPanelReference => Element = __splitPanelReference);
+        builder.AddElementReferenceCapture(20, splitPanelReference => Element = splitPanelReference);
 
         // Add start slot content
         if (StartContent is not null)

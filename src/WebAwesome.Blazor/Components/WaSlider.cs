@@ -122,7 +122,7 @@ public class WaSlider : WaInputBase<decimal?>
         {
             // For single value mode, use standard binding
             builder.AddAttribute(30, "value", CurrentValue);
-            builder.AddAttribute(31, "onchange", EventCallback.Factory.CreateBinder<decimal?>(this, __value => CurrentValue = __value, CurrentValue));
+            builder.AddAttribute(31, "onchange", EventCallback.Factory.CreateBinder<decimal?>(this, value => CurrentValue = value, CurrentValue));
         }
 
         builder.SetUpdatesAttributeName("value");
@@ -135,7 +135,7 @@ public class WaSlider : WaInputBase<decimal?>
             builder.AddAttribute(50, "wa-change", OnValueChange);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(51, __sliderReference => Element = __sliderReference);
+        builder.AddElementReferenceCapture(51, sliderReference => Element = sliderReference);
 
         // Add child content (reference labels)
         if (ChildContent is not null)

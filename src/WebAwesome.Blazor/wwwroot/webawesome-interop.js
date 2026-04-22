@@ -52,8 +52,7 @@ export function invokeMethod(element, methodName, args) {
 
     try {
         // Apply the method with the provided arguments
-        const result = element[methodName].apply(element, args || []);
-        return result;
+        return element[methodName].apply(element, args || []);
     } catch (error) {
         throw new Error(`Failed to invoke method '${methodName}' on ${tagName}: ${error.message}`);
     }
@@ -104,5 +103,36 @@ export function getProperty(element, propertyName) {
         return element[propertyName];
     } catch (error) {
         throw new Error(`Failed to get property '${propertyName}' from ${tagName}: ${error.message}`);
+    }
+}
+
+/**
+ * Sets an element's value property and dispatches input/change events.
+ * Useful for web components that don't react to attribute updates.
+ * @param {HTMLElement} element
+ * @param {any} value
+ * @param {boolean} dispatchInput
+ * @param {boolean} dispatchChange
+ */
+export function setValueAndNotify(element, value, dispatchInput = true, dispatchChange = false) {
+    console.log("setValueAndNotify called with: ", element, value, dispatchInput, dispatchChange);
+    if (!element) {
+        throw new Error('Element reference is null or undefined');
+    }
+
+    console.log("Setting value to: ", value);
+    try {
+        element.value = value ?? '';
+
+        if (dispatchInput) {
+            element.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        }
+
+        if (dispatchChange) {
+            element.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+        }
+    } catch (error) {
+        const tagName = element.tagName?.toLowerCase() || 'unknown';
+        throw new Error(`Failed to set value on ${tagName}: ${error.message}`);
     }
 }

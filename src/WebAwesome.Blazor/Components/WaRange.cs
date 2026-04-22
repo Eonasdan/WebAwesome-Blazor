@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using WebAwesome.Blazor.Base;
@@ -83,7 +82,7 @@ public class WaRange : WaInputBase<decimal>
         // Add value binding for single value mode
         if (!Range)
         {
-            builder.AddAttribute(40, "onchange", EventCallback.Factory.CreateBinder<decimal>(this, __value => CurrentValue = __value, CurrentValue));
+            builder.AddAttribute(40, "onchange", EventCallback.Factory.CreateBinder<decimal>(this, value => CurrentValue = value, CurrentValue));
             builder.SetUpdatesAttributeName("value");
         }
         else
@@ -96,7 +95,7 @@ public class WaRange : WaInputBase<decimal>
         AddCommonEventHandlers(builder, 50);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(60, __sliderReference => Element = __sliderReference);
+        builder.AddElementReferenceCapture(60, sliderReference => Element = sliderReference);
 
         // Add label and hint slots
         AddLabelAndHintSlots(builder, 70);
@@ -122,7 +121,7 @@ public class WaRange : WaInputBase<decimal>
             return true;
         }
 
-        result = default;
+        result = 0;
         validationErrorMessage = $"The {DisplayName ?? FieldIdentifier.FieldName} field must be a number.";
         return false;
     }

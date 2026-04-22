@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
@@ -67,7 +66,7 @@ public class WaProgressBar : ComponentBase
         builder.AddAttribute(12, "indeterminate", Indeterminate);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(13, __progressBarReference => Element = __progressBarReference);
+        builder.AddElementReferenceCapture(13, progressBarReference => Element = progressBarReference);
 
         // Add content (progress text)
         if (ChildContent is not null)

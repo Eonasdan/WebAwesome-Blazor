@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -17,7 +16,7 @@ public class WaCarousel : ComponentBase
 {
     #region ------ Injected Services ------
 
-    [Inject] private WebAwesomeJSInterop JSInterop { get; set; } = default!;
+    [Inject] private WebAwesomeJSInterop JSInterop { get; set; } = null!;
 
     #endregion
 
@@ -94,7 +93,7 @@ public class WaCarousel : ComponentBase
             builder.AddAttribute(15, "wa-slide-change", OnSlideChange);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(20, __carouselReference => Element = __carouselReference);
+        builder.AddElementReferenceCapture(20, carouselReference => Element = carouselReference);
 
         // Add child content (carousel items)
         if (ChildContent is not null)

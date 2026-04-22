@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
@@ -84,7 +83,7 @@ public class WaCard : ComponentBase
         builder.AddAttribute(13, "with-media", WithMedia || MediaContent is not null);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(14, __cardReference => Element = __cardReference);
+        builder.AddElementReferenceCapture(14, cardReference => Element = cardReference);
 
         // Add media slot content
         if (MediaContent is not null)

@@ -20,7 +20,7 @@ public class WaResizeObserver : ComponentBase
 {
     #region ------ Dependency Injection ------
 
-    [Inject] protected WebAwesomeJSInterop JSInterop { get; set; } = default!;
+    [Inject] protected WebAwesomeJSInterop JSInterop { get; set; } = null!;
 
     #endregion
 
@@ -86,7 +86,7 @@ public class WaResizeObserver : ComponentBase
             builder.AddAttribute(20, "wa-resize", OnResize);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(30, __observerReference => Element = __observerReference);
+        builder.AddElementReferenceCapture(30, observerReference => Element = observerReference);
 
         // Add child content to observe
         if (ChildContent is not null)

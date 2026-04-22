@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
@@ -60,7 +59,7 @@ public class WaProgressRing : ComponentBase
         builder.AddAttribute(4, "value", Value);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(10, __progressRingReference => Element = __progressRingReference);
+        builder.AddElementReferenceCapture(10, progressRingReference => Element = progressRingReference);
 
         // Add child content (label)
         if (ChildContent is not null)

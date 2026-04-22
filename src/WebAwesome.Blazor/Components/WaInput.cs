@@ -1,7 +1,8 @@
+using System;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using WebAwesome.Blazor.Base;
 
 namespace WebAwesome.Blazor.Components;
@@ -12,6 +13,10 @@ namespace WebAwesome.Blazor.Components;
 /// </summary>
 public class WaInput : WaInputBase<string?>
 {
+    private string? _lastRenderedValue;
+    private bool _pendingAutoClear;
+
+
     #region ------ Visual & Behavior Properties ------
 
     [Parameter] public string? Placeholder { get; set; }
@@ -77,7 +82,7 @@ public class WaInput : WaInputBase<string?>
 
         // Add value binding
         builder.AddAttribute(31, "value", CurrentValueAsString);
-        builder.AddAttribute(32, "onchange", EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString));
+        builder.AddAttribute(32, "onchange", EventCallback.Factory.CreateBinder<string?>(this, value => CurrentValueAsString = value, CurrentValueAsString));
         builder.SetUpdatesAttributeName("value");
 
         // Add common event handlers
@@ -94,7 +99,7 @@ public class WaInput : WaInputBase<string?>
             builder.AddAttribute(52, "wa-password-visibility-change", OnPasswordVisibilityChange);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(53, __inputReference => Element = __inputReference);
+        builder.AddElementReferenceCapture(53, inputReference => Element = inputReference);
 
         // Add start slot content
         if (StartContent is not null)
@@ -126,6 +131,46 @@ public class WaInput : WaInputBase<string?>
         result = value;
         validationErrorMessage = null;
         return true;
+    }
+
+    protected override Task OnParametersSetAsync()
+    {
+        // Detect transition: non-empty -> empty
+        var current = CurrentValueAsString ?? string.Empty;
+        var previous = _lastRenderedValue ?? string.Empty;
+
+        if (previous.Length > 0 && current.Length == 0)
+        {
+            _pendingAutoClear = true;
+        }
+
+        return base.OnParametersSetAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        _lastRenderedValue = CurrentValueAsString ?? string.Empty;
+
+        if (_pendingAutoClear)
+        {
+            _pendingAutoClear = false;
+
+            if (Element is not null)
+            {
+                // Ensure the underlying web component's internal state is cleared too.
+                await JSInterop.SetValueAndNotifyAsync(Element.Value, string.Empty, dispatchInput: true, dispatchChange: false);
+            }
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    public async Task ClearAsync()
+    {
+        if (Element is null)
+            throw new InvalidOperationException("Cannot clear before the component is rendered. Element reference is null.");
+
+        await JSInterop.SetValueAndNotifyAsync(Element.Value, string.Empty, dispatchInput: true, dispatchChange: false);
     }
 
     #endregion

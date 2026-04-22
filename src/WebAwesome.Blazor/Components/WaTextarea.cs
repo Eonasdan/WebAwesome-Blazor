@@ -2,10 +2,7 @@
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Rendering;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using WebAwesome.Blazor.Base;
 
@@ -16,9 +13,12 @@ namespace WebAwesome.Blazor.Components;
 /// </summary>
 public class WaTextArea : InputBase<string?>, IFormValidation
 {
+    private string? _lastRenderedValue;
+    private bool _pendingAutoClear;
+
     #region ------ Dependency Injection ------
 
-    [Inject] private WebAwesomeJSInterop JSInterop { get; set; } = default!;
+    [Inject] private WebAwesomeJSInterop JSInterop { get; set; } = null!;
 
     #endregion
 
@@ -65,7 +65,7 @@ public class WaTextArea : InputBase<string?>, IFormValidation
         builder.OpenElement(0, "wa-textarea");
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "name", NameAttributeValue);
-        builder.AddAttributeIfNotNullOrEmpty(3, "class", String.Join(' ', Class, CssClass));
+        builder.AddAttributeIfNotNullOrEmpty(3, "class", string.Join(' ', Class, CssClass));
         builder.AddAttributeIfNotNullOrEmpty(4, "style", Style);
         builder.AddAttributeIfNotNullOrEmpty(5, "placeholder", Placeholder);
         builder.AddAttributeIfNotNull(6, "rows", Rows);
@@ -82,9 +82,11 @@ public class WaTextArea : InputBase<string?>, IFormValidation
         builder.AddAttributeIfNotNullOrEmpty(17, "label", Label);
         builder.AddAttributeIfNotNullOrEmpty(18, "hint", Hint);
         builder.AddAttribute(19, "value", CurrentValueAsString);
-        builder.AddAttribute(20, "onchange", EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString));
+        builder.AddAttribute(20, "onchange", EventCallback.Factory.CreateBinder<string?>(this, value => CurrentValueAsString = value, CurrentValueAsString));
         builder.SetUpdatesAttributeName("value");
-        builder.AddElementReferenceCapture(21, __inputReference => Element = __inputReference);
+
+        builder.AddElementReferenceCapture(21, inputReference => Element = inputReference);
+
         if (MarkupLabel is not null)
         {
             builder.OpenElement(22, "span");
@@ -92,6 +94,7 @@ public class WaTextArea : InputBase<string?>, IFormValidation
             builder.AddContent(24, MarkupLabel);
             builder.CloseElement();
         }
+
         if (MarkupHint is not null)
         {
             builder.OpenElement(25, "span");
@@ -99,6 +102,7 @@ public class WaTextArea : InputBase<string?>, IFormValidation
             builder.AddContent(27, MarkupHint);
             builder.CloseElement();
         }
+
         builder.CloseElement();
     }
 
@@ -110,8 +114,6 @@ public class WaTextArea : InputBase<string?>, IFormValidation
         return true;
     }
 
-    #region ------ Implementation of IFormValidation ------
-
     /// <inheritdoc />
     public async Task SetCustomValidityAsync(string message)
     {
@@ -121,5 +123,43 @@ public class WaTextArea : InputBase<string?>, IFormValidation
         await JSInterop.SetCustomValidityAsync(Element.Value, message);
     }
 
-    #endregion
+    protected override Task OnParametersSetAsync()
+    {
+        // Detect transition: non-empty -> empty
+        var current = CurrentValueAsString ?? string.Empty;
+        var previous = _lastRenderedValue ?? string.Empty;
+
+        if (previous.Length > 0 && current.Length == 0)
+        {
+            _pendingAutoClear = true;
+        }
+
+        return base.OnParametersSetAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        _lastRenderedValue = CurrentValueAsString ?? string.Empty;
+
+        if (_pendingAutoClear)
+        {
+            _pendingAutoClear = false;
+
+            if (Element is not null)
+            {
+                // Ensure the underlying web component's internal state is cleared too.
+                await JSInterop.SetValueAndNotifyAsync(Element.Value, string.Empty, dispatchInput: true, dispatchChange: false);
+            }
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    public async Task ClearAsync()
+    {
+        if (Element is null)
+            throw new InvalidOperationException("Cannot clear before the component is rendered. Element reference is null.");
+
+        await JSInterop.SetValueAndNotifyAsync(Element.Value, string.Empty, dispatchInput: true, dispatchChange: false);
+    }
 }

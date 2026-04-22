@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
@@ -86,7 +85,7 @@ public class WaDropdownItem : ComponentBase
         builder.AddAttributeIfNotNull(14, "variant", Variant?.ToHtmlValue());
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(15, __dropdownItemReference => Element = __dropdownItemReference);
+        builder.AddElementReferenceCapture(15, dropdownItemReference => Element = dropdownItemReference);
 
         // Add icon slot content
         if (IconContent is not null)

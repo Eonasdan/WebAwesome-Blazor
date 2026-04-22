@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using WebAwesome.Blazor.Base;
@@ -41,14 +40,14 @@ public class WaColorPicker : WaInputBase<string>
         builder.AddAttribute(24, "value", CurrentValueAsString);
 
         // Add value binding
-        builder.AddAttribute(30, "onchange", EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString));
+        builder.AddAttribute(30, "onchange", EventCallback.Factory.CreateBinder<string?>(this, value => CurrentValueAsString = value, CurrentValueAsString));
         builder.SetUpdatesAttributeName("value");
 
         // Add common event handlers
         AddCommonEventHandlers(builder, 50);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(60, __colorPickerReference => Element = __colorPickerReference);
+        builder.AddElementReferenceCapture(60, colorPickerReference => Element = colorPickerReference);
 
         // Add label and hint slots
         AddLabelAndHintSlots(builder, 70);

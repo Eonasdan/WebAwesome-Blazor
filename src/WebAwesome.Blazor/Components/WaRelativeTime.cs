@@ -20,7 +20,7 @@ public class WaRelativeTime : ComponentBase
 {
     #region ------ Dependency Injection ------
 
-    [Inject] protected WebAwesomeJSInterop JSInterop { get; set; } = default!;
+    [Inject] protected WebAwesomeJSInterop JSInterop { get; set; } = null!;
 
     #endregion
 
@@ -86,7 +86,7 @@ public class WaRelativeTime : ComponentBase
             builder.AddAttribute(14, "numeric", Numeric);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(20, __relativeTimeReference => Element = __relativeTimeReference);
+        builder.AddElementReferenceCapture(20, relativeTimeReference => Element = relativeTimeReference);
 
         builder.CloseElement();
     }

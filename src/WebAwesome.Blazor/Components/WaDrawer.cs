@@ -16,7 +16,7 @@ public class WaDrawer : ComponentBase
 {
     #region ------ Dependency Injection ------
 
-    [Inject] protected WebAwesomeJSInterop JSInterop { get; set; } = default!;
+    [Inject] protected WebAwesomeJSInterop JSInterop { get; set; } = null!;
 
     #endregion
 
@@ -106,7 +106,7 @@ public class WaDrawer : ComponentBase
             builder.AddAttribute(22, "wa-initial-focus", OnInitialFocus);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(23, __drawerReference => Element = __drawerReference);
+        builder.AddElementReferenceCapture(23, drawerReference => Element = drawerReference);
 
         // Add header actions slot content
         if (HeaderActionsContent is not null)

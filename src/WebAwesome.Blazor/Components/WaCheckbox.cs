@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
 using WebAwesome.Blazor.Base;
 
 namespace WebAwesome.Blazor.Components;
@@ -53,7 +52,7 @@ public class WaCheckbox : WaInputBase<bool>
         builder.AddAttribute(22, "value", bool.TrueString);
 
         // Add value binding
-        builder.AddAttribute(23, "onchange", EventCallback.Factory.CreateBinder<bool>(this, __value => CurrentValue = __value, CurrentValue));
+        builder.AddAttribute(23, "onchange", EventCallback.Factory.CreateBinder<bool>(this, value => CurrentValue = value, CurrentValue));
         builder.SetUpdatesAttributeName("checked");
 
         // Add common event handlers
@@ -64,7 +63,7 @@ public class WaCheckbox : WaInputBase<bool>
             builder.AddAttribute(40, "wa-change", OnCheckedChange);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(41, __checkboxReference => Element = __checkboxReference);
+        builder.AddElementReferenceCapture(41, checkboxReference => Element = checkboxReference);
 
         // Add child content (label)
         if (ChildContent is not null)

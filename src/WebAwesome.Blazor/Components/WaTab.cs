@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -18,7 +17,7 @@ public class WaTab : ComponentBase
 {
     #region ------ Injected Services ------
 
-    [Inject] private WebAwesomeJSInterop JSInterop { get; set; } = default!;
+    [Inject] private WebAwesomeJSInterop JSInterop { get; set; } = null!;
 
     #endregion
 
@@ -93,7 +92,7 @@ public class WaTab : ComponentBase
             builder.AddAttribute(12, "onblur", OnBlur);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(13, __tabReference => Element = __tabReference);
+        builder.AddElementReferenceCapture(13, tabReference => Element = tabReference);
 
         // Add child content (label)
         if (ChildContent is not null)

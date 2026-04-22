@@ -16,7 +16,7 @@ public class WaPopover : ComponentBase
 {
     #region ------ Dependency Injection ------
 
-    [Inject] protected WebAwesomeJSInterop JSInterop { get; set; } = default!;
+    [Inject] protected WebAwesomeJSInterop JSInterop { get; set; } = null!;
 
     #endregion
 
@@ -93,7 +93,7 @@ public class WaPopover : ComponentBase
             builder.AddAttribute(21, "wa-hide", OnHide);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(22, __popoverReference => Element = __popoverReference);
+        builder.AddElementReferenceCapture(22, popoverReference => Element = popoverReference);
 
         // Add content
         if (ChildContent is not null)

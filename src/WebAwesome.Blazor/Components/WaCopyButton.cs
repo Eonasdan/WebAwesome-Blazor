@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -17,7 +16,7 @@ public class WaCopyButton : ComponentBase
 {
     #region ------ Dependency Injection ------
 
-    [Inject] protected WebAwesomeJSInterop JSInterop { get; set; } = default!;
+    [Inject] protected WebAwesomeJSInterop JSInterop { get; set; } = null!;
 
     #endregion
 
@@ -112,7 +111,7 @@ public class WaCopyButton : ComponentBase
             builder.AddAttribute(22, "wa-error", OnError);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(23, __copyButtonReference => Element = __copyButtonReference);
+        builder.AddElementReferenceCapture(23, copyButtonReference => Element = copyButtonReference);
 
         // Add icon slots
         if (CopyIcon is not null)

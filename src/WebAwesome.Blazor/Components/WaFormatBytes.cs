@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
@@ -55,7 +54,7 @@ public class WaFormatBytes : ComponentBase
         builder.AddAttributeIfNotNullOrEmpty(6, "lang", Lang);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(10, __formatBytesReference => Element = __formatBytesReference);
+        builder.AddElementReferenceCapture(10, formatBytesReference => Element = formatBytesReference);
 
         builder.CloseElement();
     }

@@ -18,7 +18,7 @@ public class WaRadio : ComponentBase, IFormValidation
 {
     #region ------ Dependency Injection ------
 
-    [Inject] private WebAwesomeJSInterop JSInterop { get; set; } = default!;
+    [Inject] private WebAwesomeJSInterop JSInterop { get; set; } = null!;
 
     #endregion
 
@@ -95,7 +95,7 @@ public class WaRadio : ComponentBase, IFormValidation
             builder.AddAttribute(12, "onblur", OnBlur);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(13, __radioReference => Element = __radioReference);
+        builder.AddElementReferenceCapture(13, radioReference => Element = radioReference);
 
         // Add child content (label)
         if (ChildContent is not null)

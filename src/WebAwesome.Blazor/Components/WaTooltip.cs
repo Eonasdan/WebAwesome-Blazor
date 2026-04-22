@@ -16,7 +16,7 @@ public class WaTooltip : ComponentBase
 {
     #region ------ Dependency Injection ------
 
-    [Inject] protected WebAwesomeJSInterop JSInterop { get; set; } = default!;
+    [Inject] protected WebAwesomeJSInterop JSInterop { get; set; } = null!;
 
     #endregion
 
@@ -93,7 +93,7 @@ public class WaTooltip : ComponentBase
             builder.AddAttribute(21, "wa-hide", OnHide);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(22, __tooltipReference => Element = __tooltipReference);
+        builder.AddElementReferenceCapture(22, tooltipReference => Element = tooltipReference);
 
         // Add content
         if (ChildContent is not null)

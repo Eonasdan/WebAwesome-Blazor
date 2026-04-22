@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -17,7 +16,7 @@ public class WaAnimation : ComponentBase
 {
     #region ------ Injected Services ------
 
-    [Inject] private WebAwesomeJSInterop JSInterop { get; set; } = default!;
+    [Inject] private WebAwesomeJSInterop JSInterop { get; set; } = null!;
 
     #endregion
 
@@ -102,7 +101,7 @@ public class WaAnimation : ComponentBase
             builder.AddAttribute(22, "wa-start", OnStart);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(23, __animationReference => Element = __animationReference);
+        builder.AddElementReferenceCapture(23, animationReference => Element = animationReference);
 
         // Add child content (element to animate)
         if (ChildContent is not null)

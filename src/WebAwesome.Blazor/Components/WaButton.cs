@@ -17,7 +17,7 @@ public class WaButton : ComponentBase, IFormValidation
 {
     #region ------ Dependency Injection ------
 
-    [Inject] private WebAwesomeJSInterop JSInterop { get; set; } = default!;
+    [Inject] private WebAwesomeJSInterop JSInterop { get; set; } = null!;
 
     #endregion
 
@@ -122,7 +122,7 @@ public class WaButton : ComponentBase, IFormValidation
             builder.AddAttribute(22, "onblur", OnBlur);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(23, __buttonReference => Element = __buttonReference);
+        builder.AddElementReferenceCapture(23, buttonReference => Element = buttonReference);
 
         // Add start slot content
         if (StartContent is not null)

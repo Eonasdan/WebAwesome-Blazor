@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
@@ -83,7 +82,7 @@ public class WaBreadcrumbItem : ComponentBase
             builder.AddAttribute(20, "onclick", OnClick);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(21, __breadcrumbItemReference => Element = __breadcrumbItemReference);
+        builder.AddElementReferenceCapture(21, breadcrumbItemReference => Element = breadcrumbItemReference);
 
         // Add start slot content
         if (StartContent is not null)

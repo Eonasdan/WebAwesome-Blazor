@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
@@ -61,7 +60,7 @@ public class WaBreadcrumb : ComponentBase
         builder.AddAttributeIfNotNullOrEmpty(3, "style", Style);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(10, __breadcrumbReference => Element = __breadcrumbReference);
+        builder.AddElementReferenceCapture(10, breadcrumbReference => Element = breadcrumbReference);
 
         // Add separator slot content
         if (SeparatorContent is not null)

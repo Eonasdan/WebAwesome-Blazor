@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
@@ -77,7 +76,7 @@ public class WaFormatDate : ComponentBase
         builder.AddAttributeIfNotNull(18, "time-zone-name", TimeZoneName?.ToHtmlValue());
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(20, __formatDateReference => Element = __formatDateReference);
+        builder.AddElementReferenceCapture(20, formatDateReference => Element = formatDateReference);
 
         builder.CloseElement();
     }

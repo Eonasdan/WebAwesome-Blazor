@@ -30,7 +30,7 @@ public class WaGrid : WaLayoutBase
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass("wa-grid"));
         builder.AddAttributeIfNotNullOrEmpty(3, "style", GetCombinedStyle());
-        builder.AddElementReferenceCapture(4, __elementReference => Element = __elementReference);
+        builder.AddElementReferenceCapture(4, elementReference => Element = elementReference);
 
         if (ChildContent is not null)
         {

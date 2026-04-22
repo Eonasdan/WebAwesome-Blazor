@@ -16,7 +16,7 @@ public class WaDetails : ComponentBase
 {
     #region ------ Dependency Injection ------
 
-    [Inject] protected WebAwesomeJSInterop JSInterop { get; set; } = default!;
+    [Inject] protected WebAwesomeJSInterop JSInterop { get; set; } = null!;
 
     #endregion
 
@@ -104,7 +104,7 @@ public class WaDetails : ComponentBase
             builder.AddAttribute(21, "wa-hide", EventCallback.Factory.Create(this, () => HandleToggleEvent(false)));
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(10, __detailsReference => Element = __detailsReference);
+        builder.AddElementReferenceCapture(10, detailsReference => Element = detailsReference);
 
         // Add summary slot content
         if (SummaryContent is not null)

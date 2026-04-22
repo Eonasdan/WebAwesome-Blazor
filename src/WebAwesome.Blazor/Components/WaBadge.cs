@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
@@ -66,7 +65,7 @@ public class WaBadge : ComponentBase
         builder.AddAttributeIfNotNull(7, "attention", Attention?.ToHtmlValue());
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(10, __badgeReference => Element = __badgeReference);
+        builder.AddElementReferenceCapture(10, badgeReference => Element = badgeReference);
 
         // Add child content
         if (ChildContent is not null)

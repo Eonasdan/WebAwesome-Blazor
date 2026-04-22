@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
@@ -47,7 +46,7 @@ public class WaSpinner : ComponentBase
         builder.AddAttributeIfNotNullOrEmpty(3, "style", Style);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(10, __spinnerReference => Element = __spinnerReference);
+        builder.AddElementReferenceCapture(10, spinnerReference => Element = spinnerReference);
 
         builder.CloseElement();
     }

@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
 using WebAwesome.Blazor.Base;
 
 namespace WebAwesome.Blazor.Components;
@@ -60,7 +59,7 @@ public class WaSwitch : WaInputBase<bool>
         builder.AddAttribute(21, "value", bool.TrueString);
 
         // Add value binding
-        builder.AddAttribute(22, "onchange", EventCallback.Factory.CreateBinder<bool>(this, __value => CurrentValue = __value, CurrentValue));
+        builder.AddAttribute(22, "onchange", EventCallback.Factory.CreateBinder<bool>(this, value => CurrentValue = value, CurrentValue));
         builder.SetUpdatesAttributeName("checked");
 
         // Add common event handlers
@@ -71,7 +70,7 @@ public class WaSwitch : WaInputBase<bool>
             builder.AddAttribute(40, "wa-change", OnCheckedChange);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(41, __switchReference => Element = __switchReference);
+        builder.AddElementReferenceCapture(41, switchReference => Element = switchReference);
 
         // Add child content (label)
         if (ChildContent is not null)

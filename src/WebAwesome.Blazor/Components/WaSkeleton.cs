@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
@@ -54,7 +53,7 @@ public class WaSkeleton : ComponentBase
             builder.AddAttribute(10, "effect", Effect.ToHtmlValue());
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(11, __skeletonReference => Element = __skeletonReference);
+        builder.AddElementReferenceCapture(11, skeletonReference => Element = skeletonReference);
 
         builder.CloseElement();
     }

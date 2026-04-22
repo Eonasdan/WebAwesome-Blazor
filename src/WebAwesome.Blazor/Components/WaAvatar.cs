@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
@@ -72,7 +71,7 @@ public class WaAvatar : ComponentBase
             builder.AddAttribute(14, "shape", Shape.ToHtmlValue());
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(15, __avatarReference => Element = __avatarReference);
+        builder.AddElementReferenceCapture(15, avatarReference => Element = avatarReference);
 
         // Add icon slot content if provided
         if (IconContent is not null)

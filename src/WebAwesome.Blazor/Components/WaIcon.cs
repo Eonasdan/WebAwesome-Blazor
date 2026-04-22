@@ -86,7 +86,7 @@ public class WaIcon : ComponentBase
             builder.AddAttribute(21, "wa-error", OnError);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(22, __iconReference => Element = __iconReference);
+        builder.AddElementReferenceCapture(22, iconReference => Element = iconReference);
 
         builder.CloseElement();
     }

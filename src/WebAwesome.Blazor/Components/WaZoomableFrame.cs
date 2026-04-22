@@ -20,7 +20,7 @@ public class WaZoomableFrame : ComponentBase
 {
     #region ------ Dependency Injection ------
 
-    [Inject] protected WebAwesomeJSInterop JSInterop { get; set; } = default!;
+    [Inject] protected WebAwesomeJSInterop JSInterop { get; set; } = null!;
 
     #endregion
 
@@ -116,7 +116,7 @@ public class WaZoomableFrame : ComponentBase
             builder.AddAttribute(42, "wa-error", OnError);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(50, __frameReference => Element = __frameReference);
+        builder.AddElementReferenceCapture(50, frameReference => Element = frameReference);
 
         builder.CloseElement();
     }

@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
@@ -84,7 +83,7 @@ public class WaOption : ComponentBase
             builder.AddAttribute(10, "wa-change", OnSelectedChange);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(11, __optionReference => Element = __optionReference);
+        builder.AddElementReferenceCapture(11, optionReference => Element = optionReference);
 
         // Add start slot content
         if (StartContent is not null)

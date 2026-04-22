@@ -83,7 +83,7 @@ public class WaTag : ComponentBase
             builder.AddAttribute(20, "wa-remove", OnRemove);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(21, __tagReference => Element = __tagReference);
+        builder.AddElementReferenceCapture(21, tagReference => Element = tagReference);
 
         // Add main content (label)
         if (ChildContent is not null)

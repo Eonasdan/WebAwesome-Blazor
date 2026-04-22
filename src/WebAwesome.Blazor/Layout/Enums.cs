@@ -9,25 +9,25 @@ namespace WebAwesome.Blazor.Layout;
 public enum GapSize
 {
     /// <summary>No gap (wa-gap-0)</summary>
-    Gap_0,
+    Gap0,
     /// <summary>3X small gap (wa-gap-3xs)</summary>
-    Gap_3XS,
+    Gap3Xs,
     /// <summary>2X small gap (wa-gap-2xs)</summary>
-    Gap_2XS,
+    Gap2Xs,
     /// <summary>Extra small gap (wa-gap-xs)</summary>
-    Gap_XS,
+    GapXs,
     /// <summary>Small gap (wa-gap-s)</summary>
-    Gap_S,
+    GapS,
     /// <summary>Medium gap (wa-gap-m)</summary>
-    Gap_M,
+    GapM,
     /// <summary>Large gap (wa-gap-l)</summary>
-    Gap_L,
+    GapL,
     /// <summary>Extra large gap (wa-gap-xl)</summary>
-    Gap_XL,
+    GapXl,
     /// <summary>2X large gap (wa-gap-2xl)</summary>
-    Gap_2XL,
+    Gap2Xl,
     /// <summary>3X large gap (wa-gap-3xl)</summary>
-    Gap_3XL
+    Gap3Xl
 }
 
 /// <summary>
@@ -89,7 +89,7 @@ public enum FlankPosition
 public enum TextSize
 {
     /// <summary>Extra small text (wa-body-xs, wa-heading-xs, wa-caption-xs)</summary>
-    XS,
+    Xs,
     /// <summary>Small text (wa-body-s, wa-heading-s, wa-caption-s)</summary>
     S,
     /// <summary>Medium text (wa-body-m, wa-heading-m, wa-caption-m)</summary>
@@ -97,11 +97,11 @@ public enum TextSize
     /// <summary>Large text (wa-body-l, wa-heading-l, wa-caption-l)</summary>
     L,
     /// <summary>Extra large text (wa-body-xl, wa-heading-xl, wa-caption-xl)</summary>
-    XL,
+    Xl,
     /// <summary>2X large text (wa-heading-2xl)</summary>
-    XL2,
+    Xl2,
     /// <summary>3X large text (wa-heading-3xl)</summary>
-    XL3
+    Xl3
 }
 
 /// <summary>
@@ -131,16 +131,16 @@ public static class WaLayoutEnumExtensions
     {
         return gap switch
         {
-            GapSize.Gap_0 => "0",
-            GapSize.Gap_3XS => "3xs",
-            GapSize.Gap_2XS => "2xs",
-            GapSize.Gap_XS => "xs",
-            GapSize.Gap_S => "s",
-            GapSize.Gap_M => "m",
-            GapSize.Gap_L => "l",
-            GapSize.Gap_XL => "xl",
-            GapSize.Gap_2XL => "2xl",
-            GapSize.Gap_3XL => "3xl",
+            GapSize.Gap0 => "0",
+            GapSize.Gap3Xs => "3xs",
+            GapSize.Gap2Xs => "2xs",
+            GapSize.GapXs => "xs",
+            GapSize.GapS => "s",
+            GapSize.GapM => "m",
+            GapSize.GapL => "l",
+            GapSize.GapXl => "xl",
+            GapSize.Gap2Xl => "2xl",
+            GapSize.Gap3Xl => "3xl",
             _ => throw new ArgumentOutOfRangeException(nameof(gap), gap, null)
         };
     }
@@ -208,13 +208,13 @@ public static class WaLayoutEnumExtensions
     {
         return size switch
         {
-            TextSize.XS => "xs",
+            TextSize.Xs => "xs",
             TextSize.S => "s",
             TextSize.M => "m",
             TextSize.L => "l",
-            TextSize.XL => "xl",
-            TextSize.XL2 => "2xl",
-            TextSize.XL3 => "3xl",
+            TextSize.Xl => "xl",
+            TextSize.Xl2 => "2xl",
+            TextSize.Xl3 => "3xl",
             _ => throw new ArgumentOutOfRangeException(nameof(size), size, null)
         };
     }

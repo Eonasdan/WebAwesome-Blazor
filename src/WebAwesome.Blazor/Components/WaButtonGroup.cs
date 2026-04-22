@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
@@ -66,7 +65,7 @@ public class WaButtonGroup : ComponentBase
         builder.AddAttributeIfNotNull(7, "variant", Variant?.ToHtmlValue());
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(10, __buttonGroupReference => Element = __buttonGroupReference);
+        builder.AddElementReferenceCapture(10, buttonGroupReference => Element = buttonGroupReference);
 
         // Add child content (buttons)
         if (ChildContent is not null)

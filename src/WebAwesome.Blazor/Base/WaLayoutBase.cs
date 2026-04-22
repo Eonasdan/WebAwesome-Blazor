@@ -1,10 +1,8 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Layout;
-using WebAwesome.Blazor.Base;
 
 namespace WebAwesome.Blazor.Base;
 
@@ -83,7 +81,7 @@ public abstract class WaLayoutBase : ComponentBase
         builder.AddMultipleAttributes(sequence + 1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(sequence + 2, "class", GetCombinedCssClass(baseLayoutClass));
         builder.AddAttributeIfNotNullOrEmpty(sequence + 3, "style", Style);
-        builder.AddElementReferenceCapture(sequence + 4, __elementReference => Element = __elementReference);
+        builder.AddElementReferenceCapture(sequence + 4, elementReference => Element = elementReference);
 
         if (ChildContent is not null)
         {

@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
@@ -63,7 +62,7 @@ public class WaQrCode : ComponentBase
         builder.AddAttribute(10, "error-correction", ErrorCorrection.ToHtmlValue());
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(20, __qrCodeReference => Element = __qrCodeReference);
+        builder.AddElementReferenceCapture(20, qrCodeReference => Element = qrCodeReference);
 
         builder.CloseElement();
     }

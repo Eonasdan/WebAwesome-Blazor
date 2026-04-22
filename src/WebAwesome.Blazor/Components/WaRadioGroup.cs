@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
 using WebAwesome.Blazor.Base;
 
 namespace WebAwesome.Blazor.Components;
@@ -51,7 +49,7 @@ public class WaRadioGroup : WaInputBase<string?>
 
         // Add value binding
         builder.AddAttribute(30, "value", CurrentValueAsString);
-        builder.AddAttribute(31, "onchange", EventCallback.Factory.CreateBinder<string?>(this, __value => CurrentValueAsString = __value, CurrentValueAsString));
+        builder.AddAttribute(31, "onchange", EventCallback.Factory.CreateBinder<string?>(this, value => CurrentValueAsString = value, CurrentValueAsString));
         builder.SetUpdatesAttributeName("value");
 
         // Add common event handlers
@@ -62,7 +60,7 @@ public class WaRadioGroup : WaInputBase<string?>
             builder.AddAttribute(50, "wa-change", OnValueChange);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(51, __radioGroupReference => Element = __radioGroupReference);
+        builder.AddElementReferenceCapture(51, radioGroupReference => Element = radioGroupReference);
 
         // Add child content (radio buttons)
         if (ChildContent is not null)

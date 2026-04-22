@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
 
 namespace WebAwesome.Blazor.Layout;
@@ -31,7 +29,7 @@ public class WaSplit : WaLayoutBase
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
         builder.AddAttributeIfNotNullOrEmpty(3, "style", Style);
-        builder.AddElementReferenceCapture(4, __elementReference => Element = __elementReference);
+        builder.AddElementReferenceCapture(4, elementReference => Element = elementReference);
 
         if (ChildContent is not null)
         {

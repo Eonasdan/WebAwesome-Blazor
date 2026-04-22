@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
@@ -79,7 +78,7 @@ public class WaFormatNumber : ComponentBase
         builder.AddAttributeIfNotNull(17, "use-grouping", UseGrouping);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(20, __formatNumberReference => Element = __formatNumberReference);
+        builder.AddElementReferenceCapture(20, formatNumberReference => Element = formatNumberReference);
 
         builder.CloseElement();
     }

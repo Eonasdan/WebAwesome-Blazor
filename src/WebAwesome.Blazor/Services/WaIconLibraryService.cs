@@ -10,11 +10,11 @@ namespace WebAwesome.Blazor.Services;
 /// </summary>
 public class WaIconLibraryService
 {
-    private readonly WebAwesomeJSInterop jsInterop;
+    private readonly WebAwesomeJSInterop _jsInterop;
 
     public WaIconLibraryService(WebAwesomeJSInterop jsInterop)
     {
-        this.jsInterop = jsInterop ?? throw new ArgumentNullException(nameof(jsInterop));
+        _jsInterop = jsInterop ?? throw new ArgumentNullException(nameof(jsInterop));
     }
 
     /// <summary>
@@ -33,7 +33,7 @@ public class WaIconLibraryService
             Resolver = $"https://kit.fontawesome.com/{kitCode}/{{family}}/{{variant}}/{{name}}.svg"
         };
 
-        await jsInterop.RegisterIconLibraryAsync("fa-pro", options);
+        await _jsInterop.RegisterIconLibraryAsync("fa-pro", options);
     }
 
     /// <summary>
@@ -48,7 +48,7 @@ public class WaIconLibraryService
             Resolver = $"https://cdn.jsdelivr.net/npm/heroicons@{version}/24/{{variant}}/{{name}}.svg"
         };
 
-        await jsInterop.RegisterIconLibraryAsync("heroicons", options);
+        await _jsInterop.RegisterIconLibraryAsync("heroicons", options);
     }
 
     /// <summary>
@@ -63,7 +63,7 @@ public class WaIconLibraryService
             Resolver = $"https://cdn.jsdelivr.net/npm/lucide@{version}/icons/{{name}}.svg"
         };
 
-        await jsInterop.RegisterIconLibraryAsync("lucide", options);
+        await _jsInterop.RegisterIconLibraryAsync("lucide", options);
     }
 
     /// <summary>
@@ -74,7 +74,7 @@ public class WaIconLibraryService
     /// <returns>A task that represents the asynchronous operation</returns>
     public async Task RegisterIconLibraryAsync(string name, IconLibraryOptions options)
     {
-        await jsInterop.RegisterIconLibraryAsync(name, options);
+        await _jsInterop.RegisterIconLibraryAsync(name, options);
     }
 
     /// <summary>
@@ -84,7 +84,7 @@ public class WaIconLibraryService
     /// <returns>A task that represents the asynchronous operation</returns>
     public async Task UnregisterIconLibraryAsync(string name)
     {
-        await jsInterop.UnregisterIconLibraryAsync(name);
+        await _jsInterop.UnregisterIconLibraryAsync(name);
     }
 
     /// <summary>
@@ -94,7 +94,7 @@ public class WaIconLibraryService
     /// <returns>A task that represents the asynchronous operation</returns>
     public async Task SetDefaultIconFamilyAsync(string family)
     {
-        await jsInterop.SetDefaultIconFamilyAsync(family);
+        await _jsInterop.SetDefaultIconFamilyAsync(family);
     }
 
     /// <summary>
@@ -103,6 +103,6 @@ public class WaIconLibraryService
     /// <returns>The current default icon family name</returns>
     public async Task<string> GetDefaultIconFamilyAsync()
     {
-        return await jsInterop.GetDefaultIconFamilyAsync();
+        return await _jsInterop.GetDefaultIconFamilyAsync();
     }
 }

@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -17,7 +16,7 @@ public class WaTabGroup : ComponentBase
 {
     #region ------ Injected Services ------
 
-    [Inject] private WebAwesomeJSInterop JSInterop { get; set; } = default!;
+    [Inject] private WebAwesomeJSInterop JSInterop { get; set; } = null!;
 
     #endregion
 
@@ -91,7 +90,7 @@ public class WaTabGroup : ComponentBase
             builder.AddAttribute(8, "wa-tab-close", OnTabClose);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(10, __tabGroupReference => Element = __tabGroupReference);
+        builder.AddElementReferenceCapture(10, tabGroupReference => Element = tabGroupReference);
 
         // Add nav slot content
         if (NavContent is not null)

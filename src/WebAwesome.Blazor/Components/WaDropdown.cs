@@ -16,7 +16,7 @@ public class WaDropdown : ComponentBase
 {
     #region ------ Dependency Injection ------
 
-    [Inject] protected WebAwesomeJSInterop JSInterop { get; set; } = default!;
+    [Inject] protected WebAwesomeJSInterop JSInterop { get; set; } = null!;
 
     #endregion
 
@@ -101,7 +101,7 @@ public class WaDropdown : ComponentBase
             builder.AddAttribute(22, "wa-select", OnSelect);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(23, __dropdownReference => Element = __dropdownReference);
+        builder.AddElementReferenceCapture(23, dropdownReference => Element = dropdownReference);
 
         // Add trigger slot content
         if (TriggerContent is not null)

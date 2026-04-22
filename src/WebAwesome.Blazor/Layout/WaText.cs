@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
@@ -59,7 +58,7 @@ public class WaText : ComponentBase
         builder.AddMultipleAttributes(1, AdditionalAttributes);
         builder.AddAttributeIfNotNullOrEmpty(2, "class", GetCombinedCssClass());
         builder.AddAttributeIfNotNullOrEmpty(3, "style", Style);
-        builder.AddElementReferenceCapture(4, __elementReference => ElementRef = __elementReference);
+        builder.AddElementReferenceCapture(4, elementReference => ElementRef = elementReference);
 
         if (ChildContent is not null)
         {
@@ -99,13 +98,13 @@ public class WaText : ComponentBase
     {
         return Size switch
         {
-            TextSize.XS => "h6",
+            TextSize.Xs => "h6",
             TextSize.S => "h5",
             TextSize.M => "h4",
             TextSize.L => "h3",
-            TextSize.XL => "h2",
-            TextSize.XL2 => "h1",
-            TextSize.XL3 => "h1",
+            TextSize.Xl => "h2",
+            TextSize.Xl2 => "h1",
+            TextSize.Xl3 => "h1",
             _ => "h4"
         };
     }
@@ -141,14 +140,14 @@ public class WaText : ComponentBase
         {
             return Size switch
             {
-                TextSize.XL2 => "wa-heading-2xl",
-                TextSize.XL3 => "wa-heading-3xl",
+                TextSize.Xl2 => "wa-heading-2xl",
+                TextSize.Xl3 => "wa-heading-3xl",
                 _ => $"wa-{variant}-{size}"
             };
         }
 
         // For body and caption, only use sizes they support
-        if (Variant == TextVariant.Caption && (Size == TextSize.XL2 || Size == TextSize.XL3))
+        if (Variant == TextVariant.Caption && (Size == TextSize.Xl2 || Size == TextSize.Xl3))
         {
             // Caption doesn't support 2xl/3xl, fallback to xl
             return "wa-caption-xl";

@@ -333,7 +333,8 @@ public enum WaFormat
 {
     Auto,
     Relative,
-    Numeric
+    Numeric,
+    Long
 }
 
 /// <summary>
@@ -1067,6 +1068,7 @@ public static class WaEnumExtensions
             WaFormat.Auto => "auto",
             WaFormat.Relative => "relative",
             WaFormat.Numeric => "numeric",
+            WaFormat.Long => "long",
             _ => throw new ArgumentOutOfRangeException(nameof(format), format, null)
         };
     }

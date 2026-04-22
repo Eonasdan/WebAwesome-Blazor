@@ -16,7 +16,7 @@ public class WaDialog : ComponentBase
 {
     #region ------ Dependency Injection ------
 
-    [Inject] protected WebAwesomeJSInterop JSInterop { get; set; } = default!;
+    [Inject] protected WebAwesomeJSInterop JSInterop { get; set; } = null!;
 
     #endregion
 
@@ -103,7 +103,7 @@ public class WaDialog : ComponentBase
             builder.AddAttribute(22, "wa-initial-focus", OnInitialFocus);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(23, __dialogReference => Element = __dialogReference);
+        builder.AddElementReferenceCapture(23, dialogReference => Element = dialogReference);
 
         // Add header actions slot content
         if (HeaderActionsContent is not null)

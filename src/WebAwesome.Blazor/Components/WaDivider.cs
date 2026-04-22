@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
@@ -54,7 +53,7 @@ public class WaDivider : ComponentBase
             builder.AddAttribute(10, "orientation", Orientation.ToHtmlValue());
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(11, __dividerReference => Element = __dividerReference);
+        builder.AddElementReferenceCapture(11, dividerReference => Element = dividerReference);
 
         builder.CloseElement();
     }

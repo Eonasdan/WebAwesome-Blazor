@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using WebAwesome.Blazor.Base;
@@ -62,7 +61,7 @@ public class WaTabPanel : ComponentBase
         builder.AddAttribute(5, "active", Active);
 
         // Add element reference capture
-        builder.AddElementReferenceCapture(10, __tabPanelReference => Element = __tabPanelReference);
+        builder.AddElementReferenceCapture(10, tabPanelReference => Element = tabPanelReference);
 
         // Add child content
         if (ChildContent is not null)
