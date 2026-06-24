@@ -101,6 +101,6 @@
 
   <!-- Include license file in packages -->
   <ItemGroup Condition="'$(IsPackable)' == 'true'">
-    <None Include="$(SolutionDir)..\LICENSE.md" Pack="true" PackagePath="" />
+    <None Include="$(MSBuildProjectDirectory)/../../LICENSE.md" Pack="true" PackagePath="" />
   </ItemGroup>
 </Project>
